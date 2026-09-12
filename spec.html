@@ -302,7 +302,6 @@
           <li>https://url.spec.whatwg.org/</li>
         </ul>
       </li>
-      <li>A PURL is a valid URL because it is a locator even though it has no Authority URL component: each type has a default repository location when defined.</li>
       <li>The PURL components are mapped to these URL components:
         <ul>
           <li>PURL `scheme`: this is a URL `scheme` with a constant value: `pkg`</li>
@@ -312,7 +311,14 @@
         </ul>
       </li>In a PURL, there is no support for a URL Authority (e.g. no `username`, `password`, `host` and `port` components).</li>
       <li>Special URL schemes as defined in https://url.spec.whatwg.org/ such as `file://`, `https://`, `http://` and `ftp://` are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or in a PURL qualifier.</li>
-      <li>Version control system (VCS) URLs such `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
+      <li>Version control system (VCS) URLs such as `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
+      <li>A PURL should be a locator based on three paths to specify or derive a URL:
+        <ul>
+          <li>A default repository location should be defined for a PURL `type`.</li>
+          <li>A repository URL or a download URL may be defined as a `qualifier` for a PURL `type`.</li>
+          <li>A package ecosystem may provide a mechanism to derive the locator based on a set of PURL components.</li>
+        </ul>
+      </li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-permitted-characters">
@@ -320,9 +326,9 @@
     <p>A canonical PURL is composed of these permitted ASCII characters:</p>
     <ul>
       <li>the Alphanumeric Characters: `A to Z`, `a to z`, `0 to 9`</li>
-      <li>the Punctuation Characters: `.-_~` (period '.', dash '-', underscore '_' and tilde '~')</li>
+      <li>the Punctuation Characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~')</li>
       <li>the Percent Character: `%` (percent sign '%')</li>
-      <li>the Separator Characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;' and hash sign '#')</li>
+      <li>the Separator Characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;', and hash sign '#')</li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-separator-characters">
@@ -384,7 +390,7 @@
       <ul>
         <li>The `scheme` is a constant with the value "pkg".</li>
         <li>The `scheme` shall be followed by an unencoded colon ':'.</li>
-        <li>PURL parsers shall accept URLs where the `scheme` and colon ':' are followed by one or more slash '/' characters, such as 'pkg://', and shall ignore and remove all such '/' characters.</li>
+        <li>PURL parsers should accept URLs where the `scheme` and colon ':' are followed by one or more slash '/' characters, such as 'pkg://', and should ignore and remove all such '/' characters.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-type">
@@ -407,7 +413,7 @@
           <ul>
             <li>shall not contain any slash '/' characters</li>
             <li>shall not be empty</li>
-            <li>may contain any Unicode character other than '/' unless the package's `type` definition provides otherwise</li>
+            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters</li>
           </ul>
         </li>
         <li>A URL host or Authority shall not be used as a `namespace`. Use instead a `repository_url` qualifier. Note however, that for some types, the `namespace` may look like a host.</li>
@@ -419,7 +425,7 @@
         <li>The `name` is prefixed by a single slash '/' separator when the `namespace` is not empty.</li>
         <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the `name`.</li>
         <li>A `name` shall be a percent-encoded string.</li>
-        <li>When percent-decoded, a `name` may contain any Unicode character unless the package's `type` definition provides otherwise.</li>
+        <li>When percent-decoded, a `name` may contain any Unicode character unless the package's `type` definition further restricts the allowed characters.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-version">
@@ -428,7 +434,7 @@
         <li>The `version` is prefixed by a '@' separator when not empty.</li>
         <li>This '@' is not part of the `version`.</li>
         <li>A `version` shall be a percent-encoded string.</li>
-        <li>When percent-decoded, a `version` may contain any Unicode character unless the package's `type` definition provides otherwise.</li>
+        <li>When percent-decoded, a `version` may contain any Unicode character unless the package's `type` definition further restricts the allowed characters.</li>
         <li>A `version` is a plain and opaque string.</li>
       </ul>
     </emu-clause>
@@ -455,7 +461,7 @@
       <ul>
         <li>The `subpath` string is prefixed by a '#' separator when not empty.</li>
         <li>The '#' is not part of the `subpath`.</li>
-        <li>The `subpath` contains zero or more segments, separated by slash '/'.</li>
+        <li>If present, the `subpath` may contain one or more segments, each separated by a single unencoded slash '/' character.</li>
         <li>Leading and trailing slashes '/' are not significant and should be stripped in the canonical form.</li>
         <li>Each `subpath` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
@@ -463,12 +469,21 @@
             <li>shall not contain any slash '/' characters</li>
             <li>shall not be empty</li>
             <li>shall not be any of '..' or '.'</li>
-            <li>may contain any Unicode character other than '/' unless the package's `type` definition provides otherwise</li>
+            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters</li>
           </ul>
         </li>
         <li>The `subpath` shall be interpreted as relative to the root of the package.</li>
       </ul>
     </emu-clause>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-type-definitions">
+    <h1>PURL type definitions</h1>
+    <p>This Standard includes the Package-URL Type Definition Schema but it does not include the set of current "registered" PURL `type` (JSON format) definition files because there are ongoing additions and changes to these files. The set of current "registered" PURL `type` definition files are located at: https://www.packageurl.org/purl-types/. Registration refers to the Package-URL community process for adding a new PURL `type`.</p>
+    <p>There are two rules related to the set of registered PURL `type` definitions for conforming PURL implementations to validate the PURL `type` component of a PURL:</p>
+    <ul>
+      <li>If the PURL `type` is registered, then the PURL is invalid if it does not conform to all of the rules from the corresponding PURL `type` definition.</li>
+      <li>If the PURL `type` is not registered, then the `type` component is valid if it conforms to the rules stated in the <emu-xref href="#sec-purl-specification-rules-type"" title></emu-xref> component rules in this Clause of the Standard. In this case an implementation should report a warning that the PURL `type` is not registered.</li>
+    </ul>
   </emu-clause>
 </emu-clause>
 
