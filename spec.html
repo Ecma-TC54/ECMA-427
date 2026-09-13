@@ -349,7 +349,7 @@
     <h1>Character encoding</h1>
     <ul>
       <li>In the <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref> clause, each component defines when and how to apply percent-encoding and decoding to its content.</li>
-      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8.</li>
+      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per <a href="https://datatracker.ietf.org/doc/html/rfc3629">RFC 3629</a>.</li>
       <li>In the component string, each "data octet" shall be replaced by the percent-encoded "character triplet" applying the percent-encoding mechanism defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">RFC 3986 section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":
         <ul>
           <li>"allowed set" is composed of the Alphanumeric Characters and the Punctuation Characters</li>
