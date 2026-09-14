@@ -478,98 +478,107 @@
     The PURL Type Definition JSON Schema is the reference data model that is used to define PURL types in a structured way.
     Each PURL type is specified in a JSON document that matches this schema. These JSON documents are then used to
     generate PURL type documentation and to support PURL libraries and tools so that they can more easily parse, build,
-    and validate PURLs by type in a consistent and standardized manner across programing languages and technology stacks.
+    and validate PURLs by type in a consistent and standardized manner across programming languages and technology stacks.
   </p>
-  <p class="properties">
-    <strong>Location:</strong> /<br>
-    <strong>Type:</strong> Object
-  </p>
-  <p>Schema to specify a Package-URL (PURL) type as a structured definition.</p>
-  <emu-table>
-    <emu-caption id="caption-1">Properties for the root object</emu-caption>
-    <table>
-      <thead>
+
+  <emu-clause id="sec--json-schema">
+    <h1>JSON Schema</h1>
+    <p>
+      The PURL Type Definition Schema is formally specified by a Draft 07 JSON Schema. Each published version of this specification is accompanied by a versioned meta-schema at a stable URI:
+    </p>
+    <p><code>https://packageurl.org/schemas/purl-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code></p>
+
+    <p class="properties">
+      <strong>Location:</strong> /<br>
+      <strong>Type:</strong> Object
+    </p>
+    <p>Schema to specify a Package-URL (PURL) type as a structured definition.</p>
+    <emu-table>
+      <emu-caption id="caption-1">Properties for the root object</emu-caption>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tr>
-          <th>Property</th>
-          <th>Type</th>
-          <th>Requirement</th>
-          <th>Description</th>
+          <td>type</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The type string for this Package-URL type.</td>
         </tr>
-      </thead>
-      <tr>
-        <td>type</td>
-        <td>String</td>
-        <td>Required</td>
-        <td>The type string for this Package-URL type.</td>
-      </tr>
-      <tr>
-        <td>type_name</td>
-        <td>String</td>
-        <td>Required</td>
-        <td>The name for this PURL type.</td>
-      </tr>
-      <tr>
-        <td>description</td>
-        <td>String</td>
-        <td>Required</td>
-        <td>The description of this PURL type.</td>
-      </tr>
-      <tr>
-        <td>repository</td>
-        <td>Object</td>
-        <td>Required</td>
-        <td>The package repository usage for this PURL type.</td>
-      </tr>
-      <tr>
-        <td>namespace_definition</td>
-        <td>Array</td>
-        <td>Required</td>
-        <td>Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition.</td>
-      </tr>
-      <tr>
-        <td>name_definition</td>
-        <td>Array</td>
-        <td>Required</td>
-        <td>Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions.</td>
-      </tr>
-      <tr>
-        <td>version_definition</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition.</td>
-      </tr>
-      <tr>
-        <td>qualifiers_definition</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type.</td>
-      </tr>
-      <tr>
-        <td>subpath_definition</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition.</td>
-      </tr>
-      <tr>
-        <td>examples</td>
-        <td>Array</td>
-        <td>Required</td>
-        <td>Example of valid, canonical PURLs for this package type.</td>
-      </tr>
-      <tr>
-        <td>note</td>
-        <td>String</td>
-        <td>Optional</td>
-        <td>Note about this PURL type.</td>
-      </tr>
-      <tr>
-        <td>reference_urls</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>Optional list of informational reference URLs about this PURL type.</td>
-      </tr>
-    </table>
-  </emu-table>
+        <tr>
+          <td>type_name</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The name for this PURL type.</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The description of this PURL type.</td>
+        </tr>
+        <tr>
+          <td>repository</td>
+          <td>Object</td>
+          <td>Required</td>
+          <td>The package repository usage for this PURL type.</td>
+        </tr>
+        <tr>
+          <td>namespace_definition</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition.</td>
+        </tr>
+        <tr>
+          <td>name_definition</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions.</td>
+        </tr>
+        <tr>
+          <td>version_definition</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition.</td>
+        </tr>
+        <tr>
+          <td>qualifiers_definition</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type.</td>
+        </tr>
+        <tr>
+          <td>subpath_definition</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition.</td>
+        </tr>
+        <tr>
+          <td>examples</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Example of valid, canonical PURLs for this package type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Note about this PURL type.</td>
+        </tr>
+        <tr>
+          <td>reference_urls</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Optional list of informational reference URLs about this PURL type.</td>
+        </tr>
+      </table>
+    </emu-table>
+  </emu-clause>
 
   <emu-clause id="sec--type">
     <h1>PURL type</h1>
@@ -763,7 +772,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--namespace-definition-case-sensitive">
@@ -883,7 +892,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--name-definition-case-sensitive">
@@ -1003,7 +1012,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--version-definition-case-sensitive">
@@ -1237,7 +1246,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--subpath-definition-case-sensitive">
