@@ -699,6 +699,12 @@
           <td>States that the PURL namespace component is optional, required or prohibited for a PURL type.</td>
         </tr>
         <tr>
+          <td>registered_values</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Optional set of registered namespace values for this PURL type. If the namespace value for a PURL of this type is not one of these registered values, a tool should report a warning. The registered namespace values should be sorted lexicographically.</td>
+        </tr>
+        <tr>
           <td>permitted_characters</td>
           <td>String</td>
           <td>Optional</td>
@@ -764,6 +770,39 @@
       <p class="properties"><strong>Type:</strong> String<br>
         <strong>Constant:</strong> prohibited</p>
       <p>States that this PURL component is prohibited for a PURL type.</p>
+    </emu-clause>
+
+    <emu-clause id="sec--namespace-definition-registered-namespace-values">
+      <h1>Registered namespace values</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values<br>
+        <strong>Property:</strong> registered_values (Optional)<br>
+        <strong>Type:</strong> Array<br>
+      <p>Optional set of registered namespace values for this PURL type. If the  namespace value for a PURL of this type is not one of these registered  values, a tool should report a warning. The registered namespace values should be sorted lexicographically.</p>
+    </emu-clause>
+
+      <emu-clause id="sec--namespace-definition-registered-namespace-value">
+        <h1>Registered namespace value</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/value<br>
+          <strong>Property:</strong> value<br>
+          <strong>Type:</strong> String</p>
+        <p>Registered namespace value for this PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--namespace-definition-registered-namespace-description">
+        <h1>Registered namespace description</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/description<br>
+          <strong>Property:</strong> description<br>
+          <strong>Type:</strong> String</p>
+        <p>Explanation of what this namespace value means for this PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--namespace-definition-reference-url">
+        <h1>Reference URL</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/reference_url<br>
+          <strong>Property:</strong> reference_url<br>
+          <strong>Type:</strong> String</p>
+        <p>Optional Reference URL for where this namespace value is defined for this PURL type.</p>
+      </emu-clause>
     </emu-clause>
 
     <emu-clause id="sec--namespace-definition-permitted-characters">
@@ -1084,7 +1123,7 @@
             <td>requirement</td>
             <td>Array</td>
             <td>Optional</td>
-            <td>States that a PURL qualifier key is optional or required for a PURL type.</td>
+            <td>States that a PURL qualifier key is optional, recommended or required for a PURL type.</td>
           </tr>
           <tr>
             <td>description</td>
@@ -1118,10 +1157,11 @@
         <h1>Qualifier key requirement</h1>
         <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/requirement<br>
           <strong>Type:</strong> String</p>
-        <p>States that a PURL qualifier key is optional or required for a PURL type.</p>
+        <p>States that a PURL qualifier key is optional, recommended or required for a PURL type.</p>
         <p><em>Shall be one of:</em></p>
         <ol>
           <li>Component optional requirement</li>
+          <li>Component recommended requirement</li>
           <li>Component required requirement</li>
         </ol>
       </emu-clause>
@@ -1134,6 +1174,13 @@
       </emu-clause>
 
       <emu-clause id="sec--qualifiers-definition-requirement-2">
+        <h1>Component recommended requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> recommended</p>
+        <p>States that this PURL component is recommended for a PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-requirement-3">
         <h1>Component required requirement</h1>
         <p class="properties"><strong>Type:</strong> String<br>
           <strong>Constant:</strong> required</p>
