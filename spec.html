@@ -1639,6 +1639,256 @@
 </code></pre>
 </emu-annex>
 
+<!-- Annex B starts here -->
+<emu-annex normative id="sec-recommended-qualifiers">
+  <h1>Recommended Qualifiers</h1>
+  <p>This Annex documents standard PURL qualifiers that may be used across many PURL type definitions.</p>
+
+  <emu-clause id="sec--purl-qualifiers">
+    <h1>PURL qualifiers</h1>
+    <p>The PURL qualifiers component provides flexibility to define important PURL information at the PURL type level. This flexibility is provided by key=value pairs. It may be tempting to use many key=value pairs to document many package attributes, but their usage should be limited to the minimal set of key=value pairs that are necessary for accurate package identification or location. This restraint is necessary to ensure that PURLs stay compact and human readable.</p>
+    <p>Tools that build PURLs should sort multiple qualifiers lexicographically by key, but this is not expected behaviour for a tool to parse or validate a PURL.</p>
+  </emu-clause>
+
+  <emu-clause id="sec--ecma-427-references">
+    <h1>ECMA-427 references</h1>
+    <p>The standards for the PURL qualifiers component and the key=value pairs are defined in two ECMA-427 clauses:</p>
+    <ul>
+      <li>
+        Clause 5.6.6 Qualifiers
+      </li>
+      <li>
+        Clause 6.9.1 Qualifiers definition
+      </li>
+    </ul>
+  </emu-clause>
+
+  <emu-clause id="sec--recommended-qualifiers">
+    <h1>Recommended qualifiers</h1>
+    <p>Many qualifiers are applicable to multiple PURL types. These qualifier keys should be used according to the following definitions.</p>
+    <emu-table>
+      <emu-caption id="caption-1">Recommended qualifiers</emu-caption>
+      <table>
+        <thead>
+          <tr>
+            <th>key</th>
+            <th>Definition</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>checksum</td>
+          <td>One or more checksums stored as a comma-separated list</td>
+        </tr>
+        <tr>
+          <td>download_url</td>
+          <td>A URL for a direct package download URL</td>
+        </tr>
+        <tr>
+          <td>file_name</td>
+          <td>The file name of a package archive</td>
+        </tr>
+        <tr>
+          <td>repository_url</td>
+          <td>A URL for a package or software repository</td>
+        </tr>
+        <tr>
+          <td>vcs_url</td>
+          <td>A URL for a version control system (VCS) location</td>
+        </tr>
+        <tr>
+          <td>vers</td>
+          <td>A VERS notation that specifies a version range instead of a single version</td>
+        </tr>
+      </table>
+    </emu-table>
+
+    <emu-clause id="sec-checksum-qualifier">
+      <h1>checksum qualifier</h1>
+      <p>Each item in the value for a 'checksum' qualifer is in the form of 'lowercase_algorithm:hex_encoded_lowercase_value' such as 'sha1:ad9503c3e994a4f611a4892f2e67ac82df727086'. Multiple 'checksum' values are separated by an encoded comma ('%2C').</p>
+      <p>The following standard 'checksum' keys should be used where applicable. This is not an exclusive list.</p>
+      <emu-table>
+        <emu-caption id="caption-1">Recommended qualifiers</emu-caption>
+        <table>
+          <thead>
+            <tr>
+              <th>algorithm</th>
+              <th>key</th>
+              <th>used by</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>BLAKE2b-256</td>
+            <td>blake2b-256</td>
+            <td>pypi</td>
+          </tr>
+          <tr>
+            <td>BLAKE3</td>
+            <td>blake3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MD5</td>
+            <td>md5</td>
+            <td>maven, pypi</td>
+          </tr>
+          <tr>
+            <td>RIPEMD-160</td>
+            <td>ripemd160</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHAKE256</td>
+            <td>shake256</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA1</td>
+            <td>sha1</td>
+            <td>maven, npm</td>
+          </tr>
+          <tr>
+            <td>SHA2-224</td>
+            <td>sha224</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA2-256</td>
+            <td>sha256</td>
+            <td>cargo, gem, maven, npm</td>
+          </tr>
+          <tr>
+            <td>SHA2-384</td>
+            <td>sha384</td>
+            <td>npm</td>
+          </tr>
+          <tr>
+            <td>SHA2-512</td>
+            <td>sha512</td>
+            <td>npm, nuget</td>
+          </tr>
+          <tr>
+            <td>SHA3-224</td>
+            <td>sha3-224</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA3-256</td>
+            <td>sha3-256</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA3-384</td>
+            <td>sha3-384</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA3-512</td>
+            <td>sha3-512</td>
+            <td></td>
+          </tr>
+        </table>
+      </emu-table>
+      <p>Example:</p>
+      <pre>
+        <code lang="plaintext">
+          pkg:generic/openssl@1.1.10g?checksum=sha1:ad9503c3e994a4f%2Csha256:41bf9088b3a1e6c1ef1d
+        </code>
+      </pre>
+    </emu-clause>
+    <emu-clause id="sec-download-url-qualifier">
+      <h1>download_url qualifier</h1>
+      <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this qualifier for the use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
+      <p>Example:</p>
+      <pre>
+        <code lang="plaintext">
+          pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz
+        </code>
+      </pre>
+    </emu-clause>
+    <emu-clause id="sec-file-name-qualifier">
+      <h1>file_name qualifier</h1>
+      <p>This qualifier is intended for the use case where you need to specify the name of a package archive or other file. Use the subpath component for the use case where you need to specify a PURL at the file level.</p>
+      <p>Examples:</p>
+      <pre>
+        <code lang="plaintext">
+          pkg:pypi/django@1.11.1?file_name=Django-1.11.1.tar.gz
+
+          pkg:pypi/django@1.11.1?file_name=Django-1.11.1-py2.py3-none-any.whl
+        </code>
+      </pre>
+    </emu-clause>
+    <emu-clause id="sec-repository-url-qualifier">
+      <h1>repository_url qualifier</h1>
+      <p>This qualifier is intended for the use cases where:</p>
+      <ul>
+        <li>
+          the 'default_repository_url' property is empty in a PURL type definition
+        </li>
+        <li>
+          there are multiple commonly used repositories for a PURL type
+        </li>
+      </ul>
+      <p>A 'repository_url' value shall be percent-encoded.</p>
+      <p>Examples:</p>
+      <pre>
+        <code lang="plaintext">
+          pkg:bazel/curl@8.8.0?repository_url=https:%2F%2Fexample.org%2Fbazel-registry
+
+          pkg:huggingface/microsoft/deberta-v3-base@559062ad13d311b87b2c455e67dcd5f1c8f65111?repository_url=https:%2F%2Fhub-ci.huggingface.co
+
+          pkg:maven/groovy/groovy@1.0?repository_url=https:%2F%2Fmaven.google.com
+        </code>
+      </pre>
+    </emu-clause>
+    <emu-clause id="sec-vcs-url-qualifier">
+      <h1>vcs_url qualifier</h1>
+      <p>This qualifier is intended for the use case where you where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on Python pip syntax at: https://pip.pypa.io/en/stable/topics/vcs-support/ The syntax is:</p>
+      <pre>
+        <code lang="plaintext">
+          &lt;vcs_tool&gt;+&lt;transport&gt;://&lt;host_name&gt;[/&lt;path_to_repository&gt;][@&lt;revision_tag_or_branch&gt;]#&lt;sub_path&gt;]
+        </code>
+      </pre>
+      <p>This compact VCS location notation supports referencing locations in version control systems such as Git, Mercurial, Subversion and Bazaar, and specifies the type of VCS tool using url prefixes: 'git+', 'hg+', 'bzr+', 'svn+' and specific transport schemes such as SSH or HTTPS.</p>
+      <p>Using user names and password in the host_name is not supported and should be reported by tools as an error.</p>
+      <p>Specifying sub-paths, branch names, a commit hash, a revision or a tag name is recommended, and supported, using the '@' delimiter for a commit version and the '#' delimiter for a sub-path.</p>
+      <p>In VCS location compact notations, the trailing slashes in host_name, and path_to_repository are not significant. Leading and trailing slashes in sub_path are not significant.</p>
+      <ul>
+        <li>
+          The supported schemes for Git are: 'git', 'git+git', 'git+https', 'git+http', and 'git+ssh'. 'git' and 'git+git' are equivalent.
+        </li>
+        <li>
+          The supported schemes for Mercurial are: 'hg+http', 'hg+https', 'hg+static-http', and 'hg+ssh'.
+        </li>
+        <li>
+          The supported schemes for Subversion are: 'svn', 'svn+svn', 'svn+http', 'svn+https', and 'svn+ssh'. 'svn and 'svn+svn' are equivalent.
+        </li>
+        <li>
+          The supported schemes for Bazaar are: 'bzr+http', 'bzr+https', 'bzr+ssh', 'bzr+sftp', 'bzr+ftp', and 'bzr+lp'.
+        </li>
+      </ul>
+      <p>A 'vcs_url' value shall be percent-encoded.</p>
+      <p>Examples:</p>
+      <pre>
+        <code lang="plaintext">
+          pkg:generic/bitwarderl?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarderl%40cc55108da32
+
+          pkg:npm/mypackage@12.4.5?vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343
+        </code>
+      </pre>
+    </emu-clause>
+    <emu-clause id="sec-vers-qualifier">
+      <h1>vers qualifier</h1>
+      <p>The primary use cases for this qualifier are to identify a version range for dependency analysis or vulnerability reporting. Use of this qualifier is mutually exclusive with use of the version component. The value for a 'vers' key must adhere to the <a href="https://packageurl.org/docs/vers/specification">Version Range Specification</a>.</p>
+      <p>Example:</p>
+      <pre>
+        <code lang="plaintext">
+            pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0
+        </code>
+      </pre>
+    </emu-clause>
+  </emu-clause>
+</emu-annex>
+
 <emu-annex id="sec-bibliography" back-matter>
   <h1>Bibliography</h1>
   <ul>
