@@ -331,7 +331,7 @@
   </emu-clause>
   <emu-clause id="sec-purl-specification-permitted-characters">
     <h1>Permitted characters</h1>
-    <p>A canonical PURL is composed of these permitted ASCII characters:</p>
+    <p>A valid PURL is composed of these permitted ASCII characters:</p>
     <ul>
       <li>the Alphanumeric Characters: `A to Z`, `a to z`, `0 to 9`</li>
       <li>the Punctuation Characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~')</li>
@@ -407,7 +407,7 @@
         <li>The package `type` shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
         <li>The `type` shall start with an ASCII letter.</li>
         <li>The `type` shall not be percent-encoded.</li>
-        <li>The `type` is case insensitive. The canonical form is lowercase.</li>
+        <li>The `type` is case insensitive. The form is lowercase.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-namespace">
@@ -415,7 +415,7 @@
       <ul>
         <li>The `namespace` is optional, unless required by the package's `type` definition.</li>
         <li>If present, the `namespace` may contain one or more segments, separated by a single unencoded slash '/' character.</li>
-        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the `namespace`.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped. They are not part of the `namespace`.</li>
         <li>Each `namespace` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
@@ -431,7 +431,7 @@
       <h1>Name</h1>
       <ul>
         <li>The `name` is prefixed by a single slash '/' separator when the `namespace` is not empty.</li>
-        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the `name`.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped. They are not part of the `name`.</li>
         <li>A `name` shall be a percent-encoded string.</li>
         <li>When percent-decoded, a `name` may contain any Unicode character unless the package's `type` definition further restricts the allowed characters.</li>
       </ul>
@@ -470,7 +470,7 @@
         <li>The `subpath` string is prefixed by a '#' separator when not empty.</li>
         <li>The '#' is not part of the `subpath`.</li>
         <li>If present, the `subpath` may contain one or more segments, each separated by a single unencoded slash '/' character.</li>
-        <li>Leading and trailing slashes '/' are not significant and should be stripped in the canonical form.</li>
+        <li>Leading and trailing slashes '/' are not significant and should be stripped.</li>
         <li>Each `subpath` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
@@ -585,7 +585,7 @@
           <td>examples</td>
           <td>Array</td>
           <td>Required</td>
-          <td>Example of valid, canonical PURLs for this package type.</td>
+          <td>Example of valid PURLs for this package type.</td>
         </tr>
         <tr>
           <td>note</td>
@@ -737,7 +737,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -843,7 +843,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--namespace-definition-normalization-rules">
@@ -906,7 +906,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -963,7 +963,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--name-definition-normalization-rules">
@@ -1026,7 +1026,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -1083,7 +1083,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--version-definition-normalization-rules">
@@ -1268,7 +1268,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -1325,7 +1325,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--subpath-definition-normalization-rules">
@@ -1360,7 +1360,7 @@
       <strong>Property:</strong> examples (Required)<br>
       <strong>Type:</strong> array (of String)<br>
       <strong>Pattern Constraint:</strong> <code class="pattern">^pkg:[a-z][a-z0-9-\.]+/.*$</code></p>
-    <p>Example of valid, canonical PURLs for this package type. Each item of this array shall be a string.</p>
+    <p>Example of valid PURLs for this package type. Each item of this array shall be a string.</p>
     <p><em>All items shall be unique.</em></p>
   </emu-clause>
 
@@ -1427,7 +1427,7 @@
         },
         "case_sensitive": {
           "title": "Case sensitive",
-          "description": "true if this PURL component is case sensitive. If false, the canonical form shall be lowercased.",
+          "description": "true if this PURL component is case sensitive. If false, the form shall be lowercase.",
           "type": "boolean",
           "default": true
         },
@@ -1689,7 +1689,7 @@
     },
     "examples": {
       "title": "PURL examples",
-      "description": "Example of valid, canonical PURLs for this package type.",
+      "description": "Example of valid PURLs for this package type.",
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
