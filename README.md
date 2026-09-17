@@ -17,6 +17,11 @@ Contributions to this specification are managed by TC54. If you are part of the 
 
 For general inquiries or feedback, you may contact Ecma International or TC54 through the official Ecma channels.
 
+## Editions of this Standard
+ECMA-427 1st Edition is the current PURL standard - the PDF and online versions of ECMA-427 1st Edition are available from: https://tc54.org/purl/.
+
+TC54/TG2 is in the process of submitting ECMA-427 2nd Edition to Ecma for approval at the December 2026 General Assembly.
+
 ## License
 
 This work is licensed under the terms defined by Ecma International, ensuring free access and adoption of the finalised specification.
