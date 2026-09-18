@@ -1119,7 +1119,7 @@
       <strong>Type:</strong> Array</p>
     <p>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type. Each item of this array shall be a Qualifiers definition object.</p>
 
-    <emu-clause id="sec--qualifiers-definition-">
+    <emu-clause id="sec--qualifiers-definition-qualifiers-definition">
       <h1>Qualifiers definition</h1>
       <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]<br>
         <strong>Type:</strong> Object</p>
@@ -1764,26 +1764,26 @@
   <h1>Recommended Qualifiers</h1>
   <p>This Annex documents standard PURL qualifiers that may be used across many PURL type definitions.</p>
 
-  <emu-clause id="sec--purl-qualifiers">
+  <emu-annex id="sec-recommended-qualifiers-purl-qualifiers">
     <h1>PURL qualifiers</h1>
     <p>The PURL qualifiers component provides flexibility to define important PURL information at the PURL type level. This flexibility is provided by key=value pairs. It may be tempting to use many key=value pairs to document many package attributes, but their usage should be limited to the minimal set of key=value pairs that are necessary for accurate package identification or location. This restraint is necessary to ensure that PURLs stay compact and human readable.</p>
     <p>Tools that build PURLs should sort multiple qualifiers lexicographically by key, but this is not expected behaviour for a tool to parse or validate a PURL.</p>
-  </emu-clause>
+  </emu-annex>
 
-  <emu-clause id="sec--ecma-427-references">
+  <emu-annex id="sec-recommended-qualifiers-ecma-427-references">
     <h1>ECMA-427 references</h1>
     <p>The standards for the PURL qualifiers component and the key=value pairs are defined in two ECMA-427 clauses:</p>
     <ul>
       <li>
-        Clause 5.6.6 Qualifiers
+        <emu-xref href="#sec-purl-specification-rules-qualifiers" title></emu-xref>
       </li>
       <li>
-        Clause 6.9.1 Qualifiers definition
+        <emu-xref href="#sec--qualifiers-definition-qualifiers-definition" title></emu-xref>
       </li>
     </ul>
-  </emu-clause>
+  </emu-annex>
 
-  <emu-clause id="sec--recommended-qualifiers">
+  <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers">
     <h1>Recommended qualifiers</h1>
     <p>Many qualifiers are applicable to multiple PURL types. These qualifier keys should be used according to the following definitions.</p>
     <emu-table>
@@ -1822,7 +1822,7 @@
       </table>
     </emu-table>
 
-    <emu-clause id="sec-checksum-qualifier">
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-checksum-qualifier">
       <h1>checksum qualifier</h1>
       <p>Each item in the value for a 'checksum' qualifer is in the form of 'lowercase_algorithm:hex_encoded_lowercase_value' such as 'sha1:ad9503c3e994a4f611a4892f2e67ac82df727086'. Multiple 'checksum' values are separated by an encoded comma ('%2C').</p>
       <p>The following standard 'checksum' keys should be used where applicable. This is not an exclusive list.</p>
@@ -1914,8 +1914,8 @@
           pkg:generic/openssl@1.1.10g?checksum=sha1:ad9503c3e994a4f%2Csha256:41bf9088b3a1e6c1ef1d
         </code>
       </pre>
-    </emu-clause>
-    <emu-clause id="sec-download-url-qualifier">
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-download-url-qualifier">
       <h1>download_url qualifier</h1>
       <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this qualifier for the use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
       <p>Example:</p>
@@ -1924,8 +1924,8 @@
           pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz
         </code>
       </pre>
-    </emu-clause>
-    <emu-clause id="sec-file-name-qualifier">
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-file-name-qualifier">
       <h1>file_name qualifier</h1>
       <p>This qualifier is intended for the use case where you need to specify the name of a package archive or other file. Use the subpath component for the use case where you need to specify a PURL at the file level.</p>
       <p>Examples:</p>
@@ -1936,8 +1936,8 @@
           pkg:pypi/django@1.11.1?file_name=Django-1.11.1-py2.py3-none-any.whl
         </code>
       </pre>
-    </emu-clause>
-    <emu-clause id="sec-repository-url-qualifier">
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-repository-url-qualifier">
       <h1>repository_url qualifier</h1>
       <p>This qualifier is intended for the use cases where:</p>
       <ul>
@@ -1959,8 +1959,8 @@
           pkg:maven/groovy/groovy@1.0?repository_url=https:%2F%2Fmaven.google.com
         </code>
       </pre>
-    </emu-clause>
-    <emu-clause id="sec-vcs-url-qualifier">
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vcs-url-qualifier">
       <h1>vcs_url qualifier</h1>
       <p>This qualifier is intended for the use case where you where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on Python pip syntax at: https://pip.pypa.io/en/stable/topics/vcs-support/ The syntax is:</p>
       <pre>
@@ -1995,8 +1995,8 @@
           pkg:npm/mypackage@12.4.5?vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343
         </code>
       </pre>
-    </emu-clause>
-    <emu-clause id="sec-vers-qualifier">
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
       <h1>vers qualifier</h1>
       <p>The primary use cases for this qualifier are to identify a version range for dependency analysis or vulnerability reporting. Use of this qualifier is mutually exclusive with use of the version component. The value for a 'vers' key must adhere to the <a href="https://packageurl.org/docs/vers/specification">Version Range Specification</a>.</p>
       <p>Example:</p>
@@ -2005,8 +2005,8 @@
             pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0
         </code>
       </pre>
-    </emu-clause>
-  </emu-clause>
+    </emu-annex>
+  </emu-annex>
 </emu-annex>
 
 <emu-annex id="sec-bibliography" back-matter>
