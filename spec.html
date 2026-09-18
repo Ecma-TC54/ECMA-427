@@ -1909,33 +1909,28 @@
         </table>
       </emu-table>
       <p>Example:</p>
-      <pre>
-        <code lang="plaintext">
-          pkg:generic/openssl@1.1.10g?checksum=sha1:ad9503c3e994a4f%2Csha256:41bf9088b3a1e6c1ef1d
-        </code>
-      </pre>
+      <emu-example>
+        <pre><code>pkg:generic/openssl@1.1.10g?checksum=sha1:ad9503c3e994a4f%2Csha256:41bf9088b3a1e6c1ef1d</code></pre>
+      </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-download-url-qualifier">
       <h1>download_url qualifier</h1>
       <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this qualifier for the use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
       <p>Example:</p>
-      <pre>
-        <code lang="plaintext">
-          pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz
-        </code>
-      </pre>
+      <emu-example>
+        <pre><code>pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz</code></pre>
+      </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-file-name-qualifier">
       <h1>file_name qualifier</h1>
       <p>This qualifier is intended for the use case where you need to specify the name of a package archive or other file. Use the subpath component for the use case where you need to specify a PURL at the file level.</p>
       <p>Examples:</p>
-      <pre>
-        <code lang="plaintext">
-          pkg:pypi/django@1.11.1?file_name=Django-1.11.1.tar.gz
-
-          pkg:pypi/django@1.11.1?file_name=Django-1.11.1-py2.py3-none-any.whl
-        </code>
-      </pre>
+      <emu-example>
+        <pre><code>pkg:pypi/django@1.11.1?file_name=Django-1.11.1.tar.gz</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:pypi/django@1.11.1?file_name=Django-1.11.1-py2.py3-none-any.whl</code></pre>
+      </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-repository-url-qualifier">
       <h1>repository_url qualifier</h1>
@@ -1950,15 +1945,15 @@
       </ul>
       <p>A 'repository_url' value shall be percent-encoded.</p>
       <p>Examples:</p>
-      <pre>
-        <code lang="plaintext">
-          pkg:bazel/curl@8.8.0?repository_url=https:%2F%2Fexample.org%2Fbazel-registry
-
-          pkg:huggingface/microsoft/deberta-v3-base@559062ad13d311b87b2c455e67dcd5f1c8f65111?repository_url=https:%2F%2Fhub-ci.huggingface.co
-
-          pkg:maven/groovy/groovy@1.0?repository_url=https:%2F%2Fmaven.google.com
-        </code>
-      </pre>
+      <emu-example>
+        <pre><code>pkg:bazel/curl@8.8.0?repository_url=https:%2F%2Fexample.org%2Fbazel-registry</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:huggingface/microsoft/deberta-v3-base@559062ad13d311b87b2c455e67dcd5f1c8f65111?repository_url=https:%2F%2Fhub-ci.huggingface.co</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:maven/groovy/groovy@1.0?repository_url=https:%2F%2Fmaven.google.com</code></pre>
+      </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vcs-url-qualifier">
       <h1>vcs_url qualifier</h1>
@@ -1988,23 +1983,20 @@
       </ul>
       <p>A 'vcs_url' value shall be percent-encoded.</p>
       <p>Examples:</p>
-      <pre>
-        <code lang="plaintext">
-          pkg:generic/bitwarderl?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarderl%40cc55108da32
-
-          pkg:npm/mypackage@12.4.5?vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343
-        </code>
-      </pre>
+      <emu-example>
+        <pre><code>pkg:generic/bitwarderl?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarderl%40cc55108da32</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:npm/mypackage@12.4.5?vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343</code></pre>
+      </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
       <h1>vers qualifier</h1>
       <p>The primary use cases for this qualifier are to identify a version range for dependency analysis or vulnerability reporting. Use of this qualifier is mutually exclusive with use of the version component. The value for a 'vers' key must adhere to the <a href="https://packageurl.org/docs/vers/specification">Version Range Specification</a>.</p>
       <p>Example:</p>
-      <pre>
-        <code lang="plaintext">
-            pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0
-        </code>
-      </pre>
+      <emu-example>
+        <pre><code>pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0</code></pre>
+      </emu-example>
     </emu-annex>
   </emu-annex>
 </emu-annex>
