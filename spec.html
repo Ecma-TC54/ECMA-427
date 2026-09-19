@@ -1824,7 +1824,7 @@
 
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-checksum-qualifier">
       <h1>checksum qualifier</h1>
-      <p>Each item in the value for a 'checksum' qualifer is in the form of 'lowercase_algorithm:hex_encoded_lowercase_value' such as 'sha1:ad9503c3e994a4f611a4892f2e67ac82df727086'. Multiple 'checksum' values are separated by an encoded comma ('%2C').</p>
+      <p>Each item in the value for a 'checksum' qualifier is in the form of 'lowercase_algorithm:hex_encoded_lowercase_value' such as 'sha1:ad9503c3e994a4f611a4892f2e67ac82df727086'. Multiple 'checksum' values are separated by an encoded comma ('%2C').</p>
       <p>The following standard 'checksum' keys should be used where applicable. This is not an exclusive list.</p>
       <emu-table>
         <emu-caption id="caption-1">Recommended qualifiers</emu-caption>
@@ -1908,7 +1908,6 @@
           </tr>
         </table>
       </emu-table>
-      <p>Example:</p>
       <emu-example>
         <pre><code>pkg:generic/openssl@1.1.10g?checksum=sha1:ad9503c3e994a4f%2Csha256:41bf9088b3a1e6c1ef1d</code></pre>
       </emu-example>
@@ -1916,7 +1915,6 @@
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-download-url-qualifier">
       <h1>download_url qualifier</h1>
       <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this qualifier for the use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
-      <p>Example:</p>
       <emu-example>
         <pre><code>pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz</code></pre>
       </emu-example>
@@ -1924,7 +1922,6 @@
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-file-name-qualifier">
       <h1>file_name qualifier</h1>
       <p>This qualifier is intended for the use case where you need to specify the name of a package archive or other file. Use the subpath component for the use case where you need to specify a PURL at the file level.</p>
-      <p>Examples:</p>
       <emu-example>
         <pre><code>pkg:pypi/django@1.11.1?file_name=Django-1.11.1.tar.gz</code></pre>
       </emu-example>
@@ -1944,7 +1941,6 @@
         </li>
       </ul>
       <p>A 'repository_url' value shall be percent-encoded.</p>
-      <p>Examples:</p>
       <emu-example>
         <pre><code>pkg:bazel/curl@8.8.0?repository_url=https:%2F%2Fexample.org%2Fbazel-registry</code></pre>
       </emu-example>
@@ -1982,7 +1978,6 @@
         </li>
       </ul>
       <p>A 'vcs_url' value shall be percent-encoded.</p>
-      <p>Examples:</p>
       <emu-example>
         <pre><code>pkg:generic/bitwarderl?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarderl%40cc55108da32</code></pre>
       </emu-example>
@@ -1993,7 +1988,6 @@
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
       <h1>vers qualifier</h1>
       <p>The primary use cases for this qualifier are to identify a version range for dependency analysis or vulnerability reporting. Use of this qualifier is mutually exclusive with use of the version component. The value for a 'vers' key must adhere to the <a href="https://packageurl.org/docs/vers/specification">Version Range Specification</a>.</p>
-      <p>Example:</p>
       <emu-example>
         <pre><code>pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0</code></pre>
       </emu-example>
