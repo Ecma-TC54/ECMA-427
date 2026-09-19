@@ -199,8 +199,16 @@
     <a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">https://ecma-international.org/publications-and-standards/standards/ecma-262/</a>
   </p>
   <p>
+    RFC 3629, <i>UTF-8, a transformation format of ISO 10646</i><br>
+    <a href="https://datatracker.ietf.org/doc/html/rfc3629">https://datatracker.ietf.org/doc/html/rfc3629</a>
+  </p>
+  <p>
     RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
     <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a>
+  </p>
+  <p>
+    RFC 5234, <i>Augmented BNF for Syntax Specifications: ABNF</i><br>
+    <a href="https://datatracker.ietf.org/doc/html/rfc5234">https://datatracker.ietf.org/doc/html/rfc5234</a>
   </p>
   <p>
     The Unicode Standard<br>
@@ -302,7 +310,6 @@
           <li>https://url.spec.whatwg.org/</li>
         </ul>
       </li>
-      <li>A PURL is a valid URL because it is a locator even though it has no Authority URL component: each type has a default repository location when defined.</li>
       <li>The PURL components are mapped to these URL components:
         <ul>
           <li>PURL `scheme`: this is a URL `scheme` with a constant value: `pkg`</li>
@@ -312,17 +319,24 @@
         </ul>
       </li>In a PURL, there is no support for a URL Authority (e.g. no `username`, `password`, `host` and `port` components).</li>
       <li>Special URL schemes as defined in https://url.spec.whatwg.org/ such as `file://`, `https://`, `http://` and `ftp://` are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or in a PURL qualifier.</li>
-      <li>Version control system (VCS) URLs such `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
+      <li>Version control system (VCS) URLs such as `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
+      <li>A PURL should be a locator based on three paths to specify or derive a URL:
+        <ul>
+          <li>A default repository location should be defined for a PURL `type`.</li>
+          <li>A repository URL or a download URL may be defined as a `qualifier` for a PURL `type`.</li>
+          <li>A package ecosystem may provide a mechanism to derive the locator based on a set of PURL components.</li>
+        </ul>
+      </li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-permitted-characters">
     <h1>Permitted characters</h1>
-    <p>A canonical PURL is composed of these permitted ASCII characters:</p>
+    <p>A valid PURL is composed of these permitted ASCII characters:</p>
     <ul>
       <li>the Alphanumeric Characters: `A to Z`, `a to z`, `0 to 9`</li>
-      <li>the Punctuation Characters: `.-_~` (period '.', dash '-', underscore '_' and tilde '~')</li>
+      <li>the Punctuation Characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~')</li>
       <li>the Percent Character: `%` (percent sign '%')</li>
-      <li>the Separator Characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;' and hash sign '#')</li>
+      <li>the Separator Characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;', and hash sign '#')</li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-separator-characters">
@@ -343,7 +357,7 @@
     <h1>Character encoding</h1>
     <ul>
       <li>In the <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref> clause, each component defines when and how to apply percent-encoding and decoding to its content.</li>
-      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8.</li>
+      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per <a href="https://datatracker.ietf.org/doc/html/rfc3629">RFC 3629</a>.</li>
       <li>In the component string, each "data octet" shall be replaced by the percent-encoded "character triplet" applying the percent-encoding mechanism defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">RFC 3986 section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":
         <ul>
           <li>"allowed set" is composed of the Alphanumeric Characters and the Punctuation Characters</li>
@@ -384,7 +398,7 @@
       <ul>
         <li>The `scheme` is a constant with the value "pkg".</li>
         <li>The `scheme` shall be followed by an unencoded colon ':'.</li>
-        <li>PURL parsers shall accept URLs where the `scheme` and colon ':' are followed by one or more slash '/' characters, such as 'pkg://', and shall ignore and remove all such '/' characters.</li>
+        <li>PURL parsers should accept URLs where the `scheme` and colon ':' are followed by one or more slash '/' characters, such as 'pkg://', and should ignore and remove all such '/' characters.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-type">
@@ -393,7 +407,7 @@
         <li>The package `type` shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
         <li>The `type` shall start with an ASCII letter.</li>
         <li>The `type` shall not be percent-encoded.</li>
-        <li>The `type` is case insensitive. The canonical form is lowercase.</li>
+        <li>The `type` is case insensitive. The form is lowercase.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-namespace">
@@ -401,13 +415,13 @@
       <ul>
         <li>The `namespace` is optional, unless required by the package's `type` definition.</li>
         <li>If present, the `namespace` may contain one or more segments, separated by a single unencoded slash '/' character.</li>
-        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the `namespace`.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped. They are not part of the `namespace`.</li>
         <li>Each `namespace` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
             <li>shall not contain any slash '/' characters</li>
             <li>shall not be empty</li>
-            <li>may contain any Unicode character other than '/' unless the package's `type` definition provides otherwise</li>
+            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters</li>
           </ul>
         </li>
         <li>A URL host or Authority shall not be used as a `namespace`. Use instead a `repository_url` qualifier. Note however, that for some types, the `namespace` may look like a host.</li>
@@ -417,9 +431,9 @@
       <h1>Name</h1>
       <ul>
         <li>The `name` is prefixed by a single slash '/' separator when the `namespace` is not empty.</li>
-        <li>All leading and trailing slashes '/' are not significant and should be stripped in the canonical form. They are not part of the `name`.</li>
+        <li>All leading and trailing slashes '/' are not significant and should be stripped. They are not part of the `name`.</li>
         <li>A `name` shall be a percent-encoded string.</li>
-        <li>When percent-decoded, a `name` may contain any Unicode character unless the package's `type` definition provides otherwise.</li>
+        <li>When percent-decoded, a `name` may contain any Unicode character unless the package's `type` definition further restricts the allowed characters.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-version">
@@ -428,7 +442,7 @@
         <li>The `version` is prefixed by a '@' separator when not empty.</li>
         <li>This '@' is not part of the `version`.</li>
         <li>A `version` shall be a percent-encoded string.</li>
-        <li>When percent-decoded, a `version` may contain any Unicode character unless the package's `type` definition provides otherwise.</li>
+        <li>When percent-decoded, a `version` may contain any Unicode character unless the package's `type` definition further restricts the allowed characters.</li>
         <li>A `version` is a plain and opaque string.</li>
       </ul>
     </emu-clause>
@@ -455,20 +469,29 @@
       <ul>
         <li>The `subpath` string is prefixed by a '#' separator when not empty.</li>
         <li>The '#' is not part of the `subpath`.</li>
-        <li>The `subpath` contains zero or more segments, separated by slash '/'.</li>
-        <li>Leading and trailing slashes '/' are not significant and should be stripped in the canonical form.</li>
+        <li>If present, the `subpath` may contain one or more segments, each separated by a single unencoded slash '/' character.</li>
+        <li>Leading and trailing slashes '/' are not significant and should be stripped.</li>
         <li>Each `subpath` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
             <li>shall not contain any slash '/' characters</li>
             <li>shall not be empty</li>
             <li>shall not be any of '..' or '.'</li>
-            <li>may contain any Unicode character other than '/' unless the package's `type` definition provides otherwise</li>
+            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters</li>
           </ul>
         </li>
         <li>The `subpath` shall be interpreted as relative to the root of the package.</li>
       </ul>
     </emu-clause>
+  </emu-clause>
+  <emu-clause id="sec-purl-specification-type-definitions">
+    <h1>PURL type definitions</h1>
+    <p>This Standard includes the Package-URL Type Definition Schema but it does not include the set of current "registered" PURL `type` (JSON format) definition files because there are ongoing additions and changes to these files. The set of current "registered" PURL `type` definition files are located at: https://www.packageurl.org/purl-types/. Registration refers to the Package-URL community process for adding a new PURL `type`.</p>
+    <p>There are two rules related to the set of registered PURL `type` definitions for conforming PURL implementations to validate the PURL `type` component of a PURL:</p>
+    <ul>
+      <li>If the PURL `type` is registered, then the PURL is invalid if it does not conform to all of the rules from the corresponding PURL `type` definition.</li>
+      <li>If the PURL `type` is not registered, then the `type` component is valid if it conforms to the rules stated in the <emu-xref href="#sec-purl-specification-rules-type"" title></emu-xref> component rules in this Clause of the Standard. In this case an implementation should report a warning that the PURL `type` is not registered.</li>
+    </ul>
   </emu-clause>
 </emu-clause>
 
@@ -478,98 +501,107 @@
     The PURL Type Definition JSON Schema is the reference data model that is used to define PURL types in a structured way.
     Each PURL type is specified in a JSON document that matches this schema. These JSON documents are then used to
     generate PURL type documentation and to support PURL libraries and tools so that they can more easily parse, build,
-    and validate PURLs by type in a consistent and standardized manner across programing languages and technology stacks.
+    and validate PURLs by type in a consistent and standardized manner across programming languages and technology stacks.
   </p>
-  <p class="properties">
-    <strong>Location:</strong> /<br>
-    <strong>Type:</strong> Object
-  </p>
-  <p>Schema to specify a Package-URL (PURL) type as a structured definition.</p>
-  <emu-table>
-    <emu-caption id="caption-1">Properties for the root object</emu-caption>
-    <table>
-      <thead>
+
+  <emu-clause id="sec--json-schema">
+    <h1>JSON Schema</h1>
+    <p>
+      The PURL Type Definition Schema is formally specified by a Draft 07 JSON Schema. Each published version of this specification is accompanied by a versioned meta-schema at a stable URI:
+    </p>
+    <p><code>https://packageurl.org/schemas/purl-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code></p>
+
+    <p class="properties">
+      <strong>Location:</strong> /<br>
+      <strong>Type:</strong> Object
+    </p>
+    <p>Schema to specify a Package-URL (PURL) type as a structured definition.</p>
+    <emu-table>
+      <emu-caption id="caption-1">Properties for the root object</emu-caption>
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Requirement</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tr>
-          <th>Property</th>
-          <th>Type</th>
-          <th>Requirement</th>
-          <th>Description</th>
+          <td>type</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The type string for this Package-URL type.</td>
         </tr>
-      </thead>
-      <tr>
-        <td>type</td>
-        <td>String</td>
-        <td>Required</td>
-        <td>The type string for this Package-URL type.</td>
-      </tr>
-      <tr>
-        <td>type_name</td>
-        <td>String</td>
-        <td>Required</td>
-        <td>The name for this PURL type.</td>
-      </tr>
-      <tr>
-        <td>description</td>
-        <td>String</td>
-        <td>Required</td>
-        <td>The description of this PURL type.</td>
-      </tr>
-      <tr>
-        <td>repository</td>
-        <td>Object</td>
-        <td>Required</td>
-        <td>The package repository usage for this PURL type.</td>
-      </tr>
-      <tr>
-        <td>namespace_definition</td>
-        <td>Array</td>
-        <td>Required</td>
-        <td>Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition.</td>
-      </tr>
-      <tr>
-        <td>name_definition</td>
-        <td>Array</td>
-        <td>Required</td>
-        <td>Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions.</td>
-      </tr>
-      <tr>
-        <td>version_definition</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition.</td>
-      </tr>
-      <tr>
-        <td>qualifiers_definition</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type.</td>
-      </tr>
-      <tr>
-        <td>subpath_definition</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition.</td>
-      </tr>
-      <tr>
-        <td>examples</td>
-        <td>Array</td>
-        <td>Required</td>
-        <td>Example of valid, canonical PURLs for this package type.</td>
-      </tr>
-      <tr>
-        <td>note</td>
-        <td>String</td>
-        <td>Optional</td>
-        <td>Note about this PURL type.</td>
-      </tr>
-      <tr>
-        <td>reference_urls</td>
-        <td>Array</td>
-        <td>Optional</td>
-        <td>Optional list of informational reference URLs about this PURL type.</td>
-      </tr>
-    </table>
-  </emu-table>
+        <tr>
+          <td>type_name</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The name for this PURL type.</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>String</td>
+          <td>Required</td>
+          <td>The description of this PURL type.</td>
+        </tr>
+        <tr>
+          <td>repository</td>
+          <td>Object</td>
+          <td>Required</td>
+          <td>The package repository usage for this PURL type.</td>
+        </tr>
+        <tr>
+          <td>namespace_definition</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Definition of the namespace component for this PURL type. The PURL namespace component shall be required, optional or prohibited for a specific PURL type definition.</td>
+        </tr>
+        <tr>
+          <td>name_definition</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Definition of the name component for this PURL type. The PURL name component is required for all PURL type definitions.</td>
+        </tr>
+        <tr>
+          <td>version_definition</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Definition of the version component for this PURL type. The PURL version component is optional for a specific PURL type definition.</td>
+        </tr>
+        <tr>
+          <td>qualifiers_definition</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type.</td>
+        </tr>
+        <tr>
+          <td>subpath_definition</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>The definition for the subpath for this PURL type. The PURL subpath component is optional for a specific PURL type definition.</td>
+        </tr>
+        <tr>
+          <td>examples</td>
+          <td>Array</td>
+          <td>Required</td>
+          <td>Example of valid PURLs for this package type.</td>
+        </tr>
+        <tr>
+          <td>note</td>
+          <td>String</td>
+          <td>Optional</td>
+          <td>Note about this PURL type.</td>
+        </tr>
+        <tr>
+          <td>reference_urls</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Optional list of informational reference URLs about this PURL type.</td>
+        </tr>
+      </table>
+    </emu-table>
+  </emu-clause>
 
   <emu-clause id="sec--type">
     <h1>PURL type</h1>
@@ -690,6 +722,12 @@
           <td>States that the PURL namespace component is optional, required or prohibited for a PURL type.</td>
         </tr>
         <tr>
+          <td>registered_values</td>
+          <td>Array</td>
+          <td>Optional</td>
+          <td>Optional set of registered namespace values for this PURL type. If the namespace value for a PURL of this type is not one of these registered values, a tool should report a warning. The registered namespace values should be sorted lexicographically.</td>
+        </tr>
+        <tr>
           <td>permitted_characters</td>
           <td>String</td>
           <td>Optional</td>
@@ -699,7 +737,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -757,13 +795,46 @@
       <p>States that this PURL component is prohibited for a PURL type.</p>
     </emu-clause>
 
+    <emu-clause id="sec--namespace-definition-registered-namespace-values">
+      <h1>Registered namespace values</h1>
+      <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values<br>
+        <strong>Property:</strong> registered_values (Optional)<br>
+        <strong>Type:</strong> Array<br></p>
+      <p>Optional set of registered namespace values for this PURL type. If the namespace value for a PURL of this type is not one of these registered values, a tool should report a warning. The registered namespace values should be sorted lexicographically.</p>
+    </emu-clause>
+
+      <emu-clause id="sec--namespace-definition-registered-namespace-value">
+        <h1>Registered namespace value</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/value<br>
+          <strong>Property:</strong> value<br>
+          <strong>Type:</strong> String</p>
+        <p>Registered namespace value for this PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--namespace-definition-registered-namespace-description">
+        <h1>Registered namespace description</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/description<br>
+          <strong>Property:</strong> description<br>
+          <strong>Type:</strong> String</p>
+        <p>Explanation of what this namespace value means for this PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--namespace-definition-reference-url">
+        <h1>Reference URL</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/reference_url<br>
+          <strong>Property:</strong> reference_url<br>
+          <strong>Type:</strong> String</p>
+        <p>Optional Reference URL for where this namespace value is defined for this PURL type.</p>
+      </emu-clause>
+    </emu-clause>
+
     <emu-clause id="sec--namespace-definition-permitted-characters">
       <h1>Permitted characters in this PURL component</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/permitted_characters<br>
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--namespace-definition-case-sensitive">
@@ -772,7 +843,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--namespace-definition-normalization-rules">
@@ -835,7 +906,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -883,7 +954,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--name-definition-case-sensitive">
@@ -892,7 +963,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--name-definition-normalization-rules">
@@ -955,7 +1026,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -1003,7 +1074,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--version-definition-case-sensitive">
@@ -1012,7 +1083,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--version-definition-normalization-rules">
@@ -1048,7 +1119,7 @@
       <strong>Type:</strong> Array</p>
     <p>Definition of the qualifiers specific to this PURL type. The PURL qualifiers component is optional for a specific PURL type, but a qualifiers key or keys may be required for a specific PURL type. Each item of this array shall be a Qualifiers definition object.</p>
 
-    <emu-clause id="sec--qualifiers-definition-">
+    <emu-clause id="sec--qualifiers-definition-qualifiers-definition">
       <h1>Qualifiers definition</h1>
       <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]<br>
         <strong>Type:</strong> Object</p>
@@ -1075,7 +1146,7 @@
             <td>requirement</td>
             <td>Array</td>
             <td>Optional</td>
-            <td>States that a PURL qualifier key is optional or required for a PURL type.</td>
+            <td>States that a PURL qualifier key is optional, recommended or required for a PURL type.</td>
           </tr>
           <tr>
             <td>description</td>
@@ -1109,10 +1180,11 @@
         <h1>Qualifier key requirement</h1>
         <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/requirement<br>
           <strong>Type:</strong> String</p>
-        <p>States that a PURL qualifier key is optional or required for a PURL type.</p>
+        <p>States that a PURL qualifier key is optional, recommended or required for a PURL type.</p>
         <p><em>Shall be one of:</em></p>
         <ol>
           <li>Component optional requirement</li>
+          <li>Component recommended requirement</li>
           <li>Component required requirement</li>
         </ol>
       </emu-clause>
@@ -1125,6 +1197,13 @@
       </emu-clause>
 
       <emu-clause id="sec--qualifiers-definition-requirement-2">
+        <h1>Component recommended requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> recommended</p>
+        <p>States that this PURL component is recommended for a PURL type.</p>
+      </emu-clause>
+
+      <emu-clause id="sec--qualifiers-definition-requirement-3">
         <h1>Component required requirement</h1>
         <p class="properties"><strong>Type:</strong> String<br>
           <strong>Constant:</strong> required</p>
@@ -1189,7 +1268,7 @@
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</td>
+          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -1237,7 +1316,7 @@
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
 
     <emu-clause id="sec--subpath-definition-case-sensitive">
@@ -1246,7 +1325,7 @@
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the canonical form shall be lowercased.</p>
+      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
 
     <emu-clause id="sec--subpath-definition-normalization-rules">
@@ -1281,7 +1360,7 @@
       <strong>Property:</strong> examples (Required)<br>
       <strong>Type:</strong> array (of String)<br>
       <strong>Pattern Constraint:</strong> <code class="pattern">^pkg:[a-z][a-z0-9-\.]+/.*$</code></p>
-    <p>Example of valid, canonical PURLs for this package type. Each item of this array shall be a string.</p>
+    <p>Example of valid PURLs for this package type. Each item of this array shall be a string.</p>
     <p><em>All items shall be unique.</em></p>
   </emu-clause>
 
@@ -1307,11 +1386,11 @@
 <emu-annex normative id="sec-schemas">
   <h1>PURL Type Definition</h1>
   <p>This Annex provides a copy of the current Package-URL Type Definition Schema. The format is JSON Schema version <a href="https://json-schema.org/draft-07">draft-07</a>.</p>
-  <p>The schema shown below is available in electronic form at: <a href="https://github.com/package-url/purl-spec/blob/main/schemas/purl-type-definition.schema.json">https://github.com/package-url/purl-spec/blob/main/schemas/purl-type-definition.schema.json</a></p>
+  <p>The schema shown below is available in electronic form at: <a href="https://github.com/package-url/purl-spec/blob/main/schemas/purl-type-definition.schema-1.1.json">https://github.com/package-url/purl-spec/blob/main/schemas/purl-type-definition.schema-1.1.json</a></p>
   <pre><code class="language-json">
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://packageurl.org/schemas/purl-type-definition.schema-1.0.json",
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json",
   "title": "Package-URL Type Definition",
   "description": "Schema to specify a Package-URL (PURL) type as a structured definition.",
   "type": "object",
@@ -1322,6 +1401,12 @@
       "description": "States that this PURL component is optional for a PURL type.",
       "type": "string",
       "const": "optional"
+    },
+    "recommended_requirement": {
+      "title": "Component recommended requirement",
+      "description": "States that this PURL component is recommended for a PURL type.",
+      "type": "string",
+      "const": "recommended"
     },
     "required_requirement": {
       "title": "Component required requirement",
@@ -1348,7 +1433,7 @@
         },
         "case_sensitive": {
           "title": "Case sensitive",
-          "description": "true if this PURL component is case sensitive. If false, the canonical form shall be lowercased.",
+          "description": "true if this PURL component is case sensitive. If false, the form shall be lowercase.",
           "type": "boolean",
           "default": true
         },
@@ -1395,7 +1480,7 @@
       "title": "PURL type definition id",
       "description": "The unique identifier URI for this PURL type definition.",
       "type": "string",
-      "pattern": "^https:\\/\\/packageurl\\.org/types/[a-z0-9-]+-definition\\.json$"
+      "pattern": "^https:\\/\\/packageurl\\.org/purl-types/[a-z0-9-]+-definition\\.json$"
     },
     "type": {
       "title": "PURL type",
@@ -1473,8 +1558,40 @@
               "$ref": "#/definitions/prohibited_requirement"
             }
           ]
+        },
+        "registered_values": {
+          "title": "Registered namespace values",
+          "description": "Optional set of registered namespace values for this PURL type. If the namespace value for a PURL of this type is not one of these registered values, a tool should report a warning. The registered namespace values should be sorted lexicographically.",
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "description"
+          ],
+          "properties": {
+            "value": {
+              "title": "Registered Namespace Value",
+              "description": "Registered namespace value for this PURL type.",
+              "type": "string"
+            },
+            "description": {
+              "title": "Registered Namespace Description",
+              "description": "Explanation of what this namespace value means for this PURL type.",
+              "type": "string"
+            },
+            "reference_url": {
+              "title": "Reference URL",
+              "description": "Optional Reference URL for where this namespace value is defined for this PURL type.",
+              "type":"string"
+            }
+          }
         }
-      },
+      }
+    },
       "allOf": [
         {
           "$ref": "#/definitions/purl_component_definition"
@@ -1554,11 +1671,14 @@
           },
           "requirement": {
             "title": "Qualifier key requirement",
-            "description": "States that a PURL qualifier key is optional or required for a PURL type.",
+            "description": "States that a PURL qualifier key is optional, recommended or required for a PURL type.",
             "type": "string",
             "oneOf": [
               {
                 "$ref": "#/definitions/optional_requirement"
+              },
+              {
+                "$ref": "#/definitions/recommended_requirement"
               },
               {
                 "$ref": "#/definitions/required_requirement"
@@ -1567,7 +1687,7 @@
           },
           "description": {
             "title": "Description",
-            "description": "The description of this qualifier.",
+            "description": "The description of this qualifier key.",
             "type": "string"
           },
           "default_value": {
@@ -1610,7 +1730,7 @@
     },
     "examples": {
       "title": "PURL examples",
-      "description": "Example of valid, canonical PURLs for this package type.",
+      "description": "Example of valid PURLs for this package type.",
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
@@ -1639,97 +1759,246 @@
 </code></pre>
 </emu-annex>
 
-<emu-annex normative id="sec-abnf-grammar">
-  <h1>ABNF Grammar</h1>
-  <p>This Annex documents the Augmented Backus-Naur Form (ABNF) grammar for PURL strings.</p>
-  <p>A valid PURL string adheres to the following grammar with the syntax defined according to <a href="https://datatracker.ietf.org/doc/html/rfc5234">RFC 5234: Augmented BNF for Syntax Specifications: ABNF</a>.</p>
-  <pre><code class="language-abnf">
-PURL = scheme ":" type
-       [ "/" namespace ] "/" name
-       [ "@" version ] [ "?" qualifiers ] [ "#" subpath ]
+<!-- Annex B starts here -->
+<emu-annex normative id="sec-recommended-qualifiers">
+  <h1>Recommended Qualifiers</h1>
+  <p>This Annex documents standard PURL qualifiers that may be used across many PURL type definitions.</p>
 
-; --- structure ---
+  <emu-annex id="sec-recommended-qualifiers-purl-qualifiers">
+    <h1>PURL qualifiers</h1>
+    <p>The PURL qualifiers component provides flexibility to define important PURL information at the PURL type level. This flexibility is provided by key=value pairs. It may be tempting to use many key=value pairs to document many package attributes, but their usage should be limited to the minimal set of key=value pairs that are necessary for accurate package identification or location. This restraint is necessary to ensure that PURLs stay compact and human readable.</p>
+    <p>Tools that build PURLs should sort multiple qualifiers lexicographically by key, but this is not expected behaviour for a tool to parse or validate a PURL.</p>
+  </emu-annex>
 
-scheme = %x70.6B.67 ; constant with the value "pkg" (lowercase only)
+  <emu-annex id="sec-recommended-qualifiers-ecma-427-references">
+    <h1>ECMA-427 references</h1>
+    <p>The standards for the PURL qualifiers component and the key=value pairs are defined in two ECMA-427 clauses:</p>
+    <ul>
+      <li>
+        <emu-xref href="#sec-purl-specification-rules-qualifiers" title></emu-xref>
+      </li>
+      <li>
+        <emu-xref href="#sec--qualifiers-definition-qualifiers-definition" title></emu-xref>
+      </li>
+    </ul>
+  </emu-annex>
 
-type = alpha-lc *( alpha-lc / DIGIT / "." / "-" )
+  <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers">
+    <h1>Recommended qualifiers</h1>
+    <p>Many qualifiers are applicable to multiple PURL types. These qualifier keys should be used according to the following definitions.</p>
+    <emu-table>
+      <emu-caption id="caption-1">Recommended qualifiers</emu-caption>
+      <table>
+        <thead>
+          <tr>
+            <th>key</th>
+            <th>Definition</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>checksum</td>
+          <td>One or more checksums stored as a comma-separated list</td>
+        </tr>
+        <tr>
+          <td>download_url</td>
+          <td>A URL for a direct package download URL</td>
+        </tr>
+        <tr>
+          <td>file_name</td>
+          <td>The file name of a package archive</td>
+        </tr>
+        <tr>
+          <td>repository_url</td>
+          <td>A URL for a package or software repository</td>
+        </tr>
+        <tr>
+          <td>vcs_url</td>
+          <td>A URL for a version control system (VCS) location</td>
+        </tr>
+        <tr>
+          <td>vers</td>
+          <td>A VERS notation that specifies a version range instead of a single version</td>
+        </tr>
+      </table>
+    </emu-table>
 
-namespace = namespace-segment *( "/" namespace-segment )
-namespace-segment = 1*pchar-ns
-
-name = 1*pchar
-
-version = 1*pchar
-
-qualifiers = qualifier *( "&" qualifier )
-qualifier = qualifier-key "=" qualifier-value
-qualifier-key = alpha-lc *( alpha-lc / DIGIT / "." / "-" / "_" )
-qualifier-value = 1*pchar
-
-subpath = subpath-segment *( "/" subpath-segment )
-subpath-segment = subpath-segment-sc *pchar-ns     ; no leading "."
-                / "." subpath-segment-sc *pchar-ns ; forbid segment "."
-                / ".." 1*pchar-ns                  ; forbid segment ".."
-                       ; excludes the exact segments "." and ".."
-subpath-segment-sc = ( alphanumeric
-                     / "-" / "_" / "~"
-                     / colon ) ; = `unreserved` without "."
-                   / pct-encoded-ns
-                          ; safe characters
-
-; --- character classes ---
-
-alpha-lc     = %x61-7A ; lowercase a-z
-alphanumeric = ALPHA / DIGIT
-punctuation  = "." / "-" / "_" / "~"
-separator    = ":" / "/" / "@" / "?" / "=" / "&" / "#"
-colon        = ":"
-percent      = "%"
-
-unreserved = alphanumeric / punctuation / colon
-reserved   = "/" / "@" / "?" / "=" / "&" / "#"
-
-; `reserved` and `separator` are not referenced directly;
-; listed to document characters that require percent-encoding
-
-pchar    = unreserved / pct-encoded
-pchar-ns = unreserved / pct-encoded-ns
-; `-ns` suffix = variant that forbids the percent-encoded slash ("%2F")
-
-; --- percent-encoding ---
-
-pct-encoded    = pct-encoded-ns / percent "2" "F"
-pct-encoded-ns = percent (
-                      ( "0" / "1" ) HEXDIG
-                         ; %00-1F
-                    / "2" ( DIGIT / "A" / "B" / "C" )
-                         ; %20-2F except %2D ("-") and %2E (".") and %2F ("/")
-                    / "3" ( "B" / "C" / "D" / "E" / "F" )
-                         ; %30-3F except %30-39 (0-9) and %3A (":")
-                    / "4" "0"
-                         ; %40-4F except %41-4F (A-O)
-                    / "5" ( "B" / "C" / "D" / "E" )
-                         ; %50-5F except %50-5A (P-Z) and %5F ("_")
-                    / "6" "0"
-                         ; %60-6F except %61-6F (a-o)
-                    / "7" ( "B" / "C" / "D" / "F" )
-                         ; %70-7F except %70-7A (p-z) and %7E ("~")
-                    / ( "8" / "9" / "A" / "B" / "C" / "D" / "E" / "F" ) HEXDIG
-                         ; %80-FF
-                    )
-  </code></pre>
-  <p>Conformance to this grammar for valid PURL strings is necessary but not sufficient because the following constraints of the specification are not expressible in ABNF. These constraints apply in addition to the grammar.</p>
-  <ul>
-    <li>
-      Each `key` shall be unique within `qualifiers`.
-    </li>
-    <li>
-      The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per <a href="https://datatracker.ietf.org/doc/html/rfc3629">RFC 3629</a>.
-    </li>
-    <li>
-      Type-specific rules may further restrict any component.
-    </li>
-  </ul>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-checksum-qualifier">
+      <h1>checksum qualifier</h1>
+      <p>Each item in the value for a 'checksum' qualifer is in the form of 'lowercase_algorithm:hex_encoded_lowercase_value' such as 'sha1:ad9503c3e994a4f611a4892f2e67ac82df727086'. Multiple 'checksum' values are separated by an encoded comma ('%2C').</p>
+      <p>The following standard 'checksum' keys should be used where applicable. This is not an exclusive list.</p>
+      <emu-table>
+        <emu-caption id="caption-1">Recommended qualifiers</emu-caption>
+        <table>
+          <thead>
+            <tr>
+              <th>algorithm</th>
+              <th>key</th>
+              <th>used by</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>BLAKE2b-256</td>
+            <td>blake2b-256</td>
+            <td>pypi</td>
+          </tr>
+          <tr>
+            <td>BLAKE3</td>
+            <td>blake3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MD5</td>
+            <td>md5</td>
+            <td>maven, pypi</td>
+          </tr>
+          <tr>
+            <td>RIPEMD-160</td>
+            <td>ripemd160</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHAKE256</td>
+            <td>shake256</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA1</td>
+            <td>sha1</td>
+            <td>maven, npm</td>
+          </tr>
+          <tr>
+            <td>SHA2-224</td>
+            <td>sha224</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA2-256</td>
+            <td>sha256</td>
+            <td>cargo, gem, maven, npm</td>
+          </tr>
+          <tr>
+            <td>SHA2-384</td>
+            <td>sha384</td>
+            <td>npm</td>
+          </tr>
+          <tr>
+            <td>SHA2-512</td>
+            <td>sha512</td>
+            <td>npm, nuget</td>
+          </tr>
+          <tr>
+            <td>SHA3-224</td>
+            <td>sha3-224</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA3-256</td>
+            <td>sha3-256</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA3-384</td>
+            <td>sha3-384</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>SHA3-512</td>
+            <td>sha3-512</td>
+            <td></td>
+          </tr>
+        </table>
+      </emu-table>
+      <p>Example:</p>
+      <emu-example>
+        <pre><code>pkg:generic/openssl@1.1.10g?checksum=sha1:ad9503c3e994a4f%2Csha256:41bf9088b3a1e6c1ef1d</code></pre>
+      </emu-example>
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-download-url-qualifier">
+      <h1>download_url qualifier</h1>
+      <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this qualifier for the use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
+      <p>Example:</p>
+      <emu-example>
+        <pre><code>pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz</code></pre>
+      </emu-example>
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-file-name-qualifier">
+      <h1>file_name qualifier</h1>
+      <p>This qualifier is intended for the use case where you need to specify the name of a package archive or other file. Use the subpath component for the use case where you need to specify a PURL at the file level.</p>
+      <p>Examples:</p>
+      <emu-example>
+        <pre><code>pkg:pypi/django@1.11.1?file_name=Django-1.11.1.tar.gz</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:pypi/django@1.11.1?file_name=Django-1.11.1-py2.py3-none-any.whl</code></pre>
+      </emu-example>
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-repository-url-qualifier">
+      <h1>repository_url qualifier</h1>
+      <p>This qualifier is intended for the use cases where:</p>
+      <ul>
+        <li>
+          the 'default_repository_url' property is empty in a PURL type definition
+        </li>
+        <li>
+          there are multiple commonly used repositories for a PURL type
+        </li>
+      </ul>
+      <p>A 'repository_url' value shall be percent-encoded.</p>
+      <p>Examples:</p>
+      <emu-example>
+        <pre><code>pkg:bazel/curl@8.8.0?repository_url=https:%2F%2Fexample.org%2Fbazel-registry</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:huggingface/microsoft/deberta-v3-base@559062ad13d311b87b2c455e67dcd5f1c8f65111?repository_url=https:%2F%2Fhub-ci.huggingface.co</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:maven/groovy/groovy@1.0?repository_url=https:%2F%2Fmaven.google.com</code></pre>
+      </emu-example>
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vcs-url-qualifier">
+      <h1>vcs_url qualifier</h1>
+      <p>This qualifier is intended for the use case where you where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on Python pip syntax at: https://pip.pypa.io/en/stable/topics/vcs-support/ The syntax is:</p>
+      <pre>
+        <code lang="plaintext">
+          &lt;vcs_tool&gt;+&lt;transport&gt;://&lt;host_name&gt;[/&lt;path_to_repository&gt;][@&lt;revision_tag_or_branch&gt;]#&lt;sub_path&gt;]
+        </code>
+      </pre>
+      <p>This compact VCS location notation supports referencing locations in version control systems such as Git, Mercurial, Subversion and Bazaar, and specifies the type of VCS tool using url prefixes: 'git+', 'hg+', 'bzr+', 'svn+' and specific transport schemes such as SSH or HTTPS.</p>
+      <p>Using user names and password in the host_name is not supported and should be reported by tools as an error.</p>
+      <p>Specifying sub-paths, branch names, a commit hash, a revision or a tag name is recommended, and supported, using the '@' delimiter for a commit version and the '#' delimiter for a sub-path.</p>
+      <p>In VCS location compact notations, the trailing slashes in host_name, and path_to_repository are not significant. Leading and trailing slashes in sub_path are not significant.</p>
+      <ul>
+        <li>
+          The supported schemes for Git are: 'git', 'git+git', 'git+https', 'git+http', and 'git+ssh'. 'git' and 'git+git' are equivalent.
+        </li>
+        <li>
+          The supported schemes for Mercurial are: 'hg+http', 'hg+https', 'hg+static-http', and 'hg+ssh'.
+        </li>
+        <li>
+          The supported schemes for Subversion are: 'svn', 'svn+svn', 'svn+http', 'svn+https', and 'svn+ssh'. 'svn and 'svn+svn' are equivalent.
+        </li>
+        <li>
+          The supported schemes for Bazaar are: 'bzr+http', 'bzr+https', 'bzr+ssh', 'bzr+sftp', 'bzr+ftp', and 'bzr+lp'.
+        </li>
+      </ul>
+      <p>A 'vcs_url' value shall be percent-encoded.</p>
+      <p>Examples:</p>
+      <emu-example>
+        <pre><code>pkg:generic/bitwarderl?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarderl%40cc55108da32</code></pre>
+      </emu-example>
+      <emu-example>
+        <pre><code>pkg:npm/mypackage@12.4.5?vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343</code></pre>
+      </emu-example>
+    </emu-annex>
+    <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
+      <h1>vers qualifier</h1>
+      <p>The primary use cases for this qualifier are to identify a version range for dependency analysis or vulnerability reporting. Use of this qualifier is mutually exclusive with use of the version component. The value for a 'vers' key must adhere to the <a href="https://packageurl.org/docs/vers/specification">Version Range Specification</a>.</p>
+      <p>Example:</p>
+      <emu-example>
+        <pre><code>pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0</code></pre>
+      </emu-example>
+    </emu-annex>
+  </emu-annex>
 </emu-annex>
 
 <emu-annex id="sec-bibliography" back-matter>
