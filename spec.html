@@ -773,61 +773,61 @@
         <li>Component required requirement</li>
         <li>Component prohibited requirement</li>
       </ol>
+      <!-- 6.6.2 starts here and becomes 6.6.1.1 -->
+      <emu-clause id="sec--namespace-definition-requirement-1">
+        <h1>Component optional requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> optional</p>
+        <p>States that this PURL component is optional for a PURL type.</p>
+      </emu-clause>
+      <!-- 6.6.3 starts here and becomes 6.6.1.2 -->
+      <emu-clause id="sec--namespace-definition-requirement-2">
+        <h1>Component required requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> required</p>
+        <p>States that this PURL component is required for a PURL type.</p>
+      </emu-clause>
+      <!-- 6.6.4 starts here and becomes 6.6.1.3 -->
+      <emu-clause id="sec--namespace-definition-requirement-3">
+        <h1>Component prohibited requirement</h1>
+        <p class="properties"><strong>Type:</strong> String<br>
+          <strong>Constant:</strong> prohibited</p>
+        <p>States that this PURL component is prohibited for a PURL type.</p>
+      </emu-clause>
     </emu-clause>
-    <!-- 6.6.2 starts here -->
-    <emu-clause id="sec--namespace-definition-requirement-1">
-      <h1>Component optional requirement</h1>
-      <p class="properties"><strong>Type:</strong> String<br>
-        <strong>Constant:</strong> optional</p>
-      <p>States that this PURL component is optional for a PURL type.</p>
-    </emu-clause>
-    <!-- 6.6.3 starts here -->
-    <emu-clause id="sec--namespace-definition-requirement-2">
-      <h1>Component required requirement</h1>
-      <p class="properties"><strong>Type:</strong> String<br>
-        <strong>Constant:</strong> required</p>
-      <p>States that this PURL component is required for a PURL type.</p>
-    </emu-clause>
-    <!-- 6.6.4 starts here -->
-    <emu-clause id="sec--namespace-definition-requirement-3">
-      <h1>Component prohibited requirement</h1>
-      <p class="properties"><strong>Type:</strong> String<br>
-        <strong>Constant:</strong> prohibited</p>
-      <p>States that this PURL component is prohibited for a PURL type.</p>
-    </emu-clause>
-    <!-- 6.6.5 starts here -->
+    <!-- 6.6.5 starts here and becomes 6.6.2 -->
     <emu-clause id="sec--namespace-definition-registered-namespace-values">
       <h1>Registered namespace values</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values<br>
         <strong>Property:</strong> registered_values (Optional)<br>
         <strong>Type:</strong> Array<br></p>
       <p>Optional set of registered namespace values for this PURL type. If the namespace value for a PURL of this type is not one of these registered values, a tool should report a warning. The registered namespace values should be sorted lexicographically.</p>
+      <!-- 6.6.6 starts here and becomes 6.6.2.1 -->
+      <emu-clause id="sec--namespace-definition-registered-namespace-values-value">
+        <h1>Registered namespace value</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/value<br>
+          <strong>Property:</strong> value<br>
+          <strong>Type:</strong> String</p>
+        <p>Registered namespace value for this PURL type.</p>
+      </emu-clause>
+      <!-- 6.6.7 starts here and becomes 6.6.2.2 -->
+      <emu-clause id="sec--namespace-definition-registered-namespace-values-description">
+        <h1>Registered namespace description</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/description<br>
+          <strong>Property:</strong> description<br>
+          <strong>Type:</strong> String</p>
+        <p>Explanation of what this namespace value means for this PURL type.</p>
+      </emu-clause>
+      <!-- 6.6.8 starts here and becomes 6.6.2.3 -->
+      <emu-clause id="sec--namespace-definition-registered-namespace-values-reference-url">
+        <h1>Registered namespace reference URL</h1>
+        <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/reference_url<br>
+          <strong>Property:</strong> reference_url<br>
+          <strong>Type:</strong> String</p>
+        <p>Optional Reference URL for where this namespace value is defined for this PURL type.</p>
+      </emu-clause>
     </emu-clause>
-    <!-- 6.6.6 starts here -->
-    <emu-clause id="sec--namespace-definition-registered-namespace-values-value">
-      <h1>Registered namespace value</h1>
-      <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/value<br>
-        <strong>Property:</strong> value<br>
-        <strong>Type:</strong> String</p>
-      <p>Registered namespace value for this PURL type.</p>
-    </emu-clause>
-    <!-- 6.6.7 starts here -->
-    <emu-clause id="sec--namespace-definition-registered-namespace-values-description">
-      <h1>Registered namespace description</h1>
-      <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/description<br>
-        <strong>Property:</strong> description<br>
-        <strong>Type:</strong> String</p>
-      <p>Explanation of what this namespace value means for this PURL type.</p>
-    </emu-clause>
-    <!-- 6.6.8 starts here -->
-    <emu-clause id="sec--namespace-definition-registered-namespace-values-reference-url">
-      <h1>Registered namespace reference URL</h1>
-      <p class="properties"><strong>Location:</strong> /namespace_definition/registered_values/reference_url<br>
-        <strong>Property:</strong> reference_url<br>
-        <strong>Type:</strong> String</p>
-      <p>Optional Reference URL for where this namespace value is defined for this PURL type.</p>
-    </emu-clause>
-    <!-- 6.6.9 starts here -->
+    <!-- 6.6.9 starts here and becomes 6.6.3 -->
     <emu-clause id="sec--namespace-definition-permitted-characters">
       <h1>Permitted characters in this PURL component</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/permitted_characters<br>
@@ -836,7 +836,7 @@
         <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
       <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
     </emu-clause>
-    <!-- 6.6.10 starts here -->
+    <!-- 6.6.10 starts here and becomes 6.6.4 -->
     <emu-clause id="sec--namespace-definition-case-sensitive">
       <h1>Case sensitive</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/case_sensitive<br>
@@ -845,7 +845,7 @@
         <strong>Default Value:</strong> `true`</p>
       <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
-    <!-- 6.6.11 starts here -->
+    <!-- 6.6.11 starts here and becomes 6.6.5 -->
     <emu-clause id="sec--namespace-definition-normalization-rules">
       <h1>Normalization rules</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/normalization_rules<br>
@@ -854,7 +854,7 @@
       <p>List of rules to normalize this component for this PURL type. These are plain text, unstructured rules as some require programming and cannot be enforced only with a schema. Tools are expected to apply these rules programmatically. Each item of this array shall be a string.</p>
       <p><em>All items shall be unique.</em></p>
     </emu-clause>
-    <!-- 6.6.12 starts here -->
+    <!-- 6.6.12 starts here and becomes 6.6.6 -->
     <emu-clause id="sec--namespace-definition-native-name">
       <h1>Native name</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/native_name<br>
@@ -862,7 +862,7 @@
         <strong>Type:</strong> String</p>
       <p>The native name of this PURL component in the package ecosystem. For instance, the 'namespace' for the 'maven' type is 'groupId', and 'scope' for the 'npm' PURL type.</p>
     </emu-clause>
-    <!-- 6.6.13 starts here -->
+    <!-- 6.6.13 starts here and becomes 6.6.7 -->
     <emu-clause id="sec--namespace-definition-note">
       <h1>Note</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/note<br>
@@ -1171,14 +1171,14 @@
       <!-- 6.9.1.1 starts here -->
       <emu-clause id="sec--qualifiers-definition-key">
         <h1>Qualifier key</h1>
-        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/key<br>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/key<br>
           <strong>Type:</strong> String</p>
         <p>The key for the qualifier.</p>
       </emu-clause>
       <!-- 6.9.1.2 starts here -->
       <emu-clause id="sec--qualifiers-definition-requirement">
         <h1>Qualifier key requirement</h1>
-        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/requirement<br>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/requirement<br>
           <strong>Type:</strong> String</p>
         <p>States that a PURL qualifier key is optional, recommended or required for a PURL type.</p>
         <p><em>Shall be one of:</em></p>
@@ -1187,46 +1187,46 @@
           <li>Component recommended requirement</li>
           <li>Component required requirement</li>
         </ol>
+        <!-- 6.9.1.3 starts here and becomes 6.9.1.2.1 -->
+        <emu-clause id="sec--qualifiers-definition-requirement-1">
+          <h1>Component optional requirement</h1>
+          <p class="properties"><strong>Type:</strong> String<br>
+            <strong>Constant:</strong> optional</p>
+          <p>States that this PURL component is optional for a PURL type.</p>
+        </emu-clause>
+        <!-- 6.9.1.4 starts here and becomes 6.9.1.2.2 -->
+        <emu-clause id="sec--qualifiers-definition-requirement-2">
+          <h1>Component recommended requirement</h1>
+          <p class="properties"><strong>Type:</strong> String<br>
+            <strong>Constant:</strong> recommended</p>
+          <p>States that this PURL component is recommended for a PURL type.</p>
+        </emu-clause>
+        <!-- 6.9.1.5 starts here and becomes 6.9.1.2.3 -->
+        <emu-clause id="sec--qualifiers-definition-requirement-3">
+          <h1>Component required requirement</h1>
+          <p class="properties"><strong>Type:</strong> String<br>
+            <strong>Constant:</strong> required</p>
+          <p>States that this PURL component is required for a PURL type.</p>
+        </emu-clause>
       </emu-clause>
-      <!-- 6.9.1.3 starts here -->
-      <emu-clause id="sec--qualifiers-definition-requirement-1">
-        <h1>Component optional requirement</h1>
-        <p class="properties"><strong>Type:</strong> String<br>
-          <strong>Constant:</strong> optional</p>
-        <p>States that this PURL component is optional for a PURL type.</p>
-      </emu-clause>
-      <!-- 6.9.1.4 starts here -->
-      <emu-clause id="sec--qualifiers-definition-requirement-2">
-        <h1>Component recommended requirement</h1>
-        <p class="properties"><strong>Type:</strong> String<br>
-          <strong>Constant:</strong> recommended</p>
-        <p>States that this PURL component is recommended for a PURL type.</p>
-      </emu-clause>
-      <!-- 6.9.1.5 starts here -->
-      <emu-clause id="sec--qualifiers-definition-requirement-3">
-        <h1>Component required requirement</h1>
-        <p class="properties"><strong>Type:</strong> String<br>
-          <strong>Constant:</strong> required</p>
-        <p>States that this PURL component is required for a PURL type.</p>
-      </emu-clause>
-      <!-- 6.9.1.6 starts here -->
+      <!-- 6.9.1.6 starts here and becomes 6.9.1.3 -->
       <emu-clause id="sec--qualifiers-definition-description">
         <h1>Description</h1>
-        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/description<br>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/description<br>
           <strong>Type:</strong> String</p>
         <p>The description of this qualifier.</p>
       </emu-clause>
-      <!-- 6.9.1.7 starts here -->
+      <!-- 6.9.1.7 starts here and becomes 6.9.1.4 -->
       <emu-clause id="sec--qualifiers-definition-default-value">
         <h1>Default value</h1>
-        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/default_value<br>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/default_value<br>
           <strong>Type:</strong> String</p>
         <p>The optional default value of this qualifier if not provided.</p>
       </emu-clause>
-      <!-- 6.9.1.8 starts here -->
+      <!-- 6.9.1.8 starts here and becomes 6.9.1.5 -->
       <emu-clause id="sec--qualifiers-definition-native-name">
         <h1>Native name</h1>
-        <p class="properties"><strong>Location:</strong> /qualifiers_definition/[]/native_name<br>
+        <p class="properties"><strong>Location:</strong> /qualifiers_definition/native_name<br>
           <strong>Type:</strong> String</p>
         <p>The equivalent native name for this qualifier key.</p>
         <p><em>All items shall be unique.</em></p>
