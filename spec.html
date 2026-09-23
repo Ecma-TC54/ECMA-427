@@ -1767,7 +1767,7 @@ f<!DOCTYPE html>
 
   <emu-annex id="sec-recommended-qualifiers-purl-qualifiers">
     <h1>PURL qualifiers</h1>
-    <p>The PURL `qualifiers` component provides flexibility to define important PURL information at the PURL `type` level. This flexibility is provided by `key=value` pairs. It may be tempting to use many `key=value` pairs to document many package attributes, but their usage should be limited to the minimal set of `key=value` pairs that are necessary for accurate package identification or location. This restraint is necessary to ensure that PURLs stay compact and human readable.</p>
+    <p>The PURL `qualifiers` component provides flexibility to define important PURL information at the PURL `type` level. This flexibility is provided by `key=value` pairs. It may be tempting to use many `key=value` pairs to document many package attributes, but their usage should be limited to the minimal set of `key=value` pairs that are necessary for accurate package identification or location. This restraint is necessary to ensure that PURLs stay compact and human-readable.</p>
     <p>Tools that build PURLs should sort multiple `qualifiers` lexicographically by key, but this is not expected behaviour for a tool to parse or validate a PURL.</p>
   </emu-annex>
 
@@ -1954,7 +1954,7 @@ f<!DOCTYPE html>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vcs-url-qualifier">
       <h1>vcs_url qualifier</h1>
-      <p>This `qualifier` is intended for the use case where you where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on Python pip syntax at: https://pip.pypa.io/en/stable/topics/vcs-support/ The syntax is:</p>
+      <p>This `qualifier` is intended for the use case where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on Python pip syntax at: https://pip.pypa.io/en/stable/topics/vcs-support/ The syntax is:</p>
       <pre>
         <code lang="plaintext">
           &lt;vcs_tool&gt;+&lt;transport&gt;://&lt;host_name&gt;[/&lt;path_to_repository&gt;][@&lt;revision_tag_or_branch&gt;]#&lt;sub_path&gt;]
@@ -1988,7 +1988,7 @@ f<!DOCTYPE html>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
       <h1>vers qualifier</h1>
-      <p>The primary use cases for this `qualifier` are to identify a version range for dependency analysis or vulnerability reporting. Use of this `qualifier` is mutually exclusive with use of the `version` component. The value for a 'vers' `key` must adhere to the <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">Version Range Specification</a>.</p>
+      <p>The primary use cases for this `qualifier` are to identify a version range for dependency analysis or vulnerability reporting. Use of this `qualifier` is mutually exclusive with use of the `version` component. The value for a 'vers' `key` shall adhere to the <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">Version Range Specification</a>.</p>
       <emu-example>
         <pre><code>pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0</code></pre>
       </emu-example>
