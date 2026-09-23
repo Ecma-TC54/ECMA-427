@@ -317,6 +317,7 @@ f<!DOCTYPE html>
       <li>https://en.wikipedia.org/wiki/URL#Syntax</li>
       <li>https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax</li>
     </ul>
+
     <p>The PURL components are mapped to these URL components:</p>
     <ul>
       <li>PURL `scheme`: this is a URL `scheme` with a constant value: `pkg`.</li>
@@ -324,6 +325,7 @@ f<!DOCTYPE html>
       <li>PURL `qualifiers`: this maps to a URL `query`.</li>
       <li>PURL `subpath`: this is a URL `fragment`.</li>
     </ul>
+
     <p>In a PURL, there is no support for a URL Authority (e.g. no `username`, `password`, `host` and `port` components).</p>
     <p>Special URL schemes as defined in URL Living Standard such as `file://`, `https://`, `http://` and `ftp://` are not valid PURL types. They are valid URL or URI schemes, but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or within a PURL qualifier.</p>
     <p>Version control system (VCS) URLs such as `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes, but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or within a PURL qualifier.</p>
@@ -338,10 +340,10 @@ f<!DOCTYPE html>
     <h1>Permitted characters</h1>
     <p>A valid PURL is composed of these permitted ASCII characters:</p>
     <ul>
-      <li>the alphanumeric characters: `A to Z`, `a to z`, `0 to 9`</li>
-      <li>the punctuation characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~')</li>
-      <li>the percent character: `%` (percent sign '%')</li>
-      <li>the separator characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;', and hash sign '#')</li>
+      <li>the alphanumeric characters: `A to Z`, `a to z`, `0 to 9`;</li>
+      <li>the punctuation characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~');</li>
+      <li>the percent character: `%` (percent sign '%');</li>
+      <li>the separator characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;', and hash sign '#').</li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-separator-characters">
@@ -364,16 +366,16 @@ f<!DOCTYPE html>
     <p>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per RFC 3629.</p>
     <p>In the component string, each "data octet" shall be replaced by the <dfn>percent-encoded</dfn> "character triplet" applying the percent-encoding mechanism defined in RFC 3986 <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":</p>
     <ul>
-      <li>"allowed set" is composed of the alphanumeric characters and the punctuation characters</li>
-      <li>"delimiters" is composed of the separator characters</li>
+      <li>"allowed set" is composed of the alphanumeric characters and the punctuation characters;</li>
+      <li>"delimiters" is composed of the separator characters.</li>
     </ul>
     <p>The following characters shall not be <emu-not-ref>percent-encoded</emu-not-ref>:</p>
       <ul>
-        <li>the alphanumeric characters</li>
-        <li>the punctuation characters</li>
-        <li>the separator characters when being used as PURL separators</li>
-        <li>the colon ':', whether used as a separator character or otherwise</li>
-        <li>the percent sign '%' when used to represent a <emu-not-ref>percent-encoded</emu-not-ref> character</li>
+        <li>the alphanumeric characters;</li>
+        <li>the punctuation characters;</li>
+        <li>the separator characters when being used as PURL separators;</li>
+        <li>the colon ':', whether used as a separator character or otherwise;</li>
+        <li>the percent sign '%' when used to represent a <emu-not-ref>percent-encoded</emu-not-ref> character.</li>
       </ul>
     <p>Where the space ' ' is permitted, it shall be <emu-not-ref>percent-encoded</emu-not-ref> as '%20'.</p>
     <p>With the exception of the percent-encoding mechanism, the rules regarding percent-encoding are defined by this Standard alone.</p>
@@ -389,7 +391,7 @@ f<!DOCTYPE html>
     <h1>Rules for each PURL component</h1>
     <p>A PURL string is an ASCII URL string composed of seven components. Except as expressly stated otherwise in this Clause, each component:</p>
     <ul>
-      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref> Clause, and</li>
+      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref> Clause;</li>
       <li>shall be encoded as defined in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> Clause.</li>
     </ul>
     <p>The "lowercase" rules are defined in the <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref> Clause.</p>
@@ -420,8 +422,8 @@ f<!DOCTYPE html>
         <li>Each `namespace` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
-            <li>shall not contain any slash '/' characters,</li>
-            <li>shall not be empty, and</li>
+            <li>shall not contain any slash '/' characters;</li>
+            <li>shall not be empty;</li>
             <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters.</li>
           </ul>
         </li>
@@ -475,9 +477,9 @@ f<!DOCTYPE html>
         <li>Each `subpath` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
-            <li>shall not contain any slash '/' characters,</li>
-            <li>shall not be empty,</li>
-            <li>shall not be any of '..' or '.', and</li>
+            <li>shall not contain any slash '/' characters;</li>
+            <li>shall not be empty;</li>
+            <li>shall not be any of '..' or '.';</li>
             <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters.</li>
           </ul>
         </li>
@@ -1775,12 +1777,8 @@ f<!DOCTYPE html>
     <h1>ECMA-427 references</h1>
     <p>The standards for the PURL `qualifiers` component and the `key=value` pairs are defined in two ECMA-427 clauses:</p>
     <ul>
-      <li>
-        <emu-xref href="#sec-purl-specification-rules-qualifiers" title></emu-xref>
-      </li>
-      <li>
-        <emu-xref href="#sec--qualifiers-definition-qualifiers-definition" title></emu-xref>
-      </li>
+      <li><emu-xref href="#sec-purl-specification-rules-qualifiers" title></emu-xref></li>
+      <li><emu-xref href="#sec--qualifiers-definition-qualifiers-definition" title></emu-xref></li>
     </ul>
   </emu-annex>
 
@@ -1965,18 +1963,10 @@ f<!DOCTYPE html>
       <p>Specifying sub-paths, branch names, a commit hash, a revision or a tag name is recommended, and supported, using the '@' delimiter for a commit version and the '#' delimiter for a sub-path.</p>
       <p>In VCS location compact notations, the trailing slashes in host_name, and path_to_repository are not significant. Leading and trailing slashes in sub_path are not significant.</p>
       <ul>
-        <li>
-          The supported schemes for Git are: 'git', 'git+git', 'git+https', 'git+http', and 'git+ssh'. 'git' and 'git+git' are equivalent.
-        </li>
-        <li>
-          The supported schemes for Mercurial are: 'hg+http', 'hg+https', 'hg+static-http', and 'hg+ssh'.
-        </li>
-        <li>
-          The supported schemes for Subversion are: 'svn', 'svn+svn', 'svn+http', 'svn+https', and 'svn+ssh'. 'svn and 'svn+svn' are equivalent.
-        </li>
-        <li>
-          The supported schemes for Bazaar are: 'bzr+http', 'bzr+https', 'bzr+ssh', 'bzr+sftp', 'bzr+ftp', and 'bzr+lp'.
-        </li>
+        <li>The supported schemes for Git are: 'git', 'git+git', 'git+https', 'git+http', and 'git+ssh'. 'git' and 'git+git' are equivalent.</li>
+        <li>The supported schemes for Mercurial are: 'hg+http', 'hg+https', 'hg+static-http', and 'hg+ssh'.</li>
+        <li>The supported schemes for Subversion are: 'svn', 'svn+svn', 'svn+http', 'svn+https', and 'svn+ssh'. 'svn and 'svn+svn' are equivalent.</li>
+        <li>The supported schemes for Bazaar are: 'bzr+http', 'bzr+https', 'bzr+ssh', 'bzr+sftp', 'bzr+ftp', and 'bzr+lp'.</li>
       </ul>
       <p>A 'vcs_url' value shall be percent-encoded.</p>
       <emu-example>
@@ -2078,15 +2068,9 @@ pct-encoded-ns = percent (
   </code></pre>
   <p>Conformance to this grammar for valid PURL strings is necessary but not sufficient because the following constraints of this Standard are not expressible in ABNF. These constraints apply in addition to the grammar.</p>
   <ul>
-    <li>
-      Each `key` shall be unique within `qualifiers`.
-    </li>
-    <li>
-      The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per RFC 3629.
-    </li>
-    <li>
-      Type-specific rules may further restrict any component.
-    </li>
+    <li>Each `key` shall be unique within `qualifiers`.</li>
+    <li>The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per RFC 3629.</li>
+    <li>Type-specific rules may further restrict any component.</li>
   </ul>
 </emu-annex>
 
