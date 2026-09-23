@@ -17,6 +17,10 @@ f<!DOCTYPE html>
     font-weight: normal !important;
   }
 
+  :is(#sec-normative-references, #sec-bibliography) dfn {
+    font-style: inherit;
+  }
+
   @supports (color-scheme: dark) {
     @media (prefers-color-scheme: dark) {
       :root {
@@ -102,6 +106,10 @@ f<!DOCTYPE html>
   }
 </style>
 <style media="print">
+  pre code {
+    word-break: break-all;
+  }
+
   a[data-print-href]::after {
     content: none;
   }
@@ -115,23 +123,25 @@ f<!DOCTYPE html>
   }
 
   /* First edition (2025-specific) changes, reassess in future editions */
+  /*
   #sec--name-definition-requirement p.properties + p {
     break-after: avoid;
   }
+  */
 </style>
 <pre class="metadata">
   title: Package-URL (PURL) specification
-  date: 2026-09-18
+  date: 2026-12-08
   shortname: ECMA-427
   status: draft
-  location: https://tc54.org/purl/
-  markEffects: true
+  location: https://tc54.org/ecma427/
+  committee: 54
   version: 2<sup>nd</sup> Edition
 </pre>
 <p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
 <div id="metadata-block">
   <h1>About this specification</h1>
-  <p>The document at <a href="https://tc54.org/purl/">https://tc54.org/purl/</a> is the most accurate and up-to-date Package-URL specification.</p>
+  <p>The document at <a href="https://tc54.org/ecma427/">https://tc54.org/ecma427/</a> is the most accurate and up-to-date Package-URL specification.</p>
   <p>This document is available as <a href>a single page</a> and as <a href="multipage/">multiple pages</a>.</p>
   <h1>Contributing to this specification</h1>
   <p>This specification is developed on GitHub with the help of the Package-URL community. There are a number of ways to contribute to the development of this specification:</p>
@@ -167,16 +177,15 @@ f<!DOCTYPE html>
     <li><strong>Ambiguity in Package Identification:</strong> With diverse naming conventions across ecosystems, identifying software packages reliably has historically been a challenge. PURL eliminates this ambiguity by creating a universal identifier with a predictable structure.</li>
     <li><strong>Cross-Ecosystem Interoperability:</strong> Developers, organizations, and tools often work across multiple ecosystems, each with its own package management systems. PURL harmonizes these differences, enabling seamless interoperability.</li>
     <li><strong>Enhanced Traceability and Risk Management:</strong> In an era where supply chain security is critical, PURL provides the foundation for identifying and tracing packages to their origins, dependencies, and potential vulnerabilities.</li>
-    <li><strong>Tooling and Automation:</strong> By standardizing package identification, PURL simplifies tooling development, automation, and integration for tasks such as software composition analysis, vulnerability management, and license compliance.</li>
+    <li><strong>Tooling and Automation:</strong> By standardizing package identification, PURL simplifies tooling development, automation, and integration for tasks such as software composition analysis, vulnerability management, and licence compliance.</li>
   </ul>
   <p>As software supply chain security becomes a global priority, formalizing PURL as an international standard ensures its adoption and consistent implementation. Standardization under Ecma International Technical Committee 54 (TC54) positions PURL as a foundational building block for secure, transparent, and efficient software ecosystems worldwide.</p>
   <p>By enabling a universally recognized and implementable specification, PURL aligns with global efforts to improve the security, reliability, and accountability of software supply chains. Its adoption ensures that organizations and developers can rely on a common language to manage software packages across the diverse and rapidly evolving software landscape.</p>
-  <p class="adoption-info">This Ecma Standard was developed by Technical Committee 54 and was adopted by the General Assembly of December 2025.</p>
 </emu-intro>
 
 <emu-clause id="sec-scope">
   <h1>Scope</h1>
-  <p>This Standard defines the Package-URL (PURL) syntax for identifying software packages independently from their ecosystem or distribution channel. PURL is used to identify software packages across software supply chains supporting many use cases, identifying software packages in Software Bills of Materials, vulnerability databases, vulnerability advisories, vulnerability disclosures and exploitability reports, and managing software package dependencies.</p>
+  <p>This Standard defines the Package-URL (PURL) syntax for identifying software packages independently of their ecosystem or distribution channel. PURL is used to identify software packages across software supply chains supporting many use cases, identifying software packages in Software Bills of Materials, vulnerability databases, vulnerability advisories, vulnerability disclosures and exploitability reports, and managing software package dependencies.</p>
   <p>A PURL is a valid URL and URI composed of seven components to identify a software package. The PURL type component defines the ecosystem-specific structure and meaning for the other PURL components. This Standard specifies the syntax for PURLs and the schema for defining PURL types, but it does not include any specific PURL type definitions, such as maven, pypi or npm.</p>
 </emu-clause>
 
@@ -185,7 +194,7 @@ f<!DOCTYPE html>
   <p>A conforming implementation of Package-URL (PURL) shall fully implement and support all elements defined within this Standard, including the syntax, components, and semantic requirements for constructing and interpreting valid PURLs.</p>
   <p>A conforming implementation of PURL shall adhere to the syntax defined in this Standard, ensuring that all PURLs are parsed, constructed, and validated according to the prescribed rules. The implementation shall provide full support for ecosystem-agnostic behaviour, enabling PURLs to function consistently and reliably across diverse environments.</p>
   <p>All required components of a PURL, such as the scheme, type, and name, shall be present and validated according to the rules defined in this Standard. Additionally, optional components, including qualifiers and subpaths, shall be handled appropriately if provided, in full compliance with their specified behaviours.</p>
-  <p>Implementations shall ensure that equivalent PURLs are consistently resolved to the same canonical representation. This includes strict adherence to normalisation and equivalence rules. Furthermore, implementations shall process URI encoding and decoding for PURL components according to the standards outlined in RFC 3986.</p>
+  <p>Implementations shall ensure that equivalent PURLs are consistently resolved to the same canonical representation. This includes strict adherence to normalization and equivalence rules. Furthermore, implementations shall process URI encoding and decoding for PURL components according to the standards outlined in RFC 3986.</p>
   <p>Invalid PURLs that fail to conform to the specification shall be identified and rejected by any conforming implementation. This guarantees the integrity and reliability of PURLs in all supported contexts.</p>
   <p>A conforming implementation of PURL may extend its functionality by providing ecosystem-specific validation, processing, or metadata handling, as long as these extensions do not violate the core specification. Additionally, implementations may offer auxiliary tools or features, such as utilities for constructing or validating PURLs, provided they align with the standard's requirements.</p>
   <p>A conforming implementation shall not redefine or alter the core syntax, components, or semantics defined by this Standard. Any prohibited extensions explicitly identified in the specification shall not be implemented. Furthermore, behaviours that compromise the interoperability of PURLs across tools, platforms, or ecosystems are strictly disallowed.</p>
@@ -195,33 +204,33 @@ f<!DOCTYPE html>
   <h1>Normative references</h1>
   <p>The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
   <p>
-    ECMA-262, <i>ECMAScript® language specification</i><br>
+    <dfn>ECMA-262</dfn>, <cite>ECMAScript® language specification</cite><br>
     <a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">https://ecma-international.org/publications-and-standards/standards/ecma-262/</a>
   </p>
   <p>
-    RFC 3629, <i>UTF-8, a transformation format of ISO 10646</i><br>
+    IETF <dfn variants="UTF-8">RFC 3629</dfn>, <cite><emu-not-ref>UTF-8</emu-not-ref>, a transformation format of ISO 10646</cite><br>
     <a href="https://datatracker.ietf.org/doc/html/rfc3629">https://datatracker.ietf.org/doc/html/rfc3629</a>
   </p>
   <p>
-    RFC 3986, <i>Uniform Resource Identifier (URI): Generic Syntax</i><br>
+    IETF <dfn variants="URI" id="dfn-rfc-3986">RFC 3986</dfn>, <cite>Uniform Resource Identifier (<emu-not-ref>URI</emu-not-ref>): Generic Syntax</cite><br>
     <a href="https://datatracker.ietf.org/doc/html/rfc3986">https://datatracker.ietf.org/doc/html/rfc3986</a>
   </p>
   <p>
-    RFC 5234, <i>Augmented BNF for Syntax Specifications: ABNF</i><br>
+    IETF <dfn variants="ABNF">RFC 5234</dfn>, <cite>Augmented BNF for Syntax Specifications:<emu-not-ref>ABNF</emu-not-ref></cite><br>
     <a href="https://datatracker.ietf.org/doc/html/rfc5234">https://datatracker.ietf.org/doc/html/rfc5234</a>
   </p>
   <p>
-    The Unicode Standard<br>
+    The <emu-not-ref>Unicode</emu-not-ref> Consortium, The <dfn id="dfn-unicode">Unicode</dfn> Standard<br>
     <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
   </p>
 </emu-clause>
 
-<emu-clause id="sec-overview">
+<emu-clause id="sec-overview" informative>
   <h1>Overview</h1>
   <p>This Clause contains a non-normative overview of the Package-URL specification.</p>
   <p>The Package-URL (PURL) specification defines a lightweight, universal syntax for identifying software packages. By leveraging a URL-based format, PURL provides a consistent and interoperable mechanism for referencing software packages across a wide range of ecosystems and tools. Its design addresses the challenges of ambiguity, inconsistency, and fragmentation in software package identification, enabling better interoperability and traceability in modern software supply chains.</p>
   <p>This Standard focuses on the core aspects of PURL, including its syntax, required components, optional attributes, and conformance requirements. It does not cover ecosystem-specific types or extensions such as PURL Version Ranges (VERS). However, the flexibility of PURL allows it to be extended to meet the needs of diverse package ecosystems without compromising its universal applicability.</p>
-  <p>The primary audience for this Standard includes developers, tool implementers, and organisations involved in software composition analysis, dependency management, and supply chain security. PURL is foundational to a variety of use cases, from software bill of materials (SBOM) generation and license compliance to vulnerability tracking and software artefact exchange.</p>
+  <p>The primary audience for this Standard includes developers, tool implementers, and organizations involved in software composition analysis, dependency management, and supply chain security. PURL is foundational to a variety of use cases, from software bill of materials (SBOM) generation and licence compliance to vulnerability tracking and software artefact exchange.</p>
   <p>While this document serves as the authoritative reference for implementing PURL, it is complemented by various ecosystem-specific guidance documents, examples, and related standards. These resources provide additional context and practical insights for leveraging PURL effectively.</p>
   <p>This overview is non-normative and serves to provide context for the specification’s intent, purpose, and audience. For detailed requirements and conformance criteria, refer to the normative clauses of this Standard.</p>
 </emu-clause>
@@ -301,87 +310,78 @@ f<!DOCTYPE html>
 
   <emu-clause id="sec-purl-specification-purl-is-a-url">
     <h1>A PURL is a URL</h1>
+    <p>A PURL is a valid URL and URI that conforms to the URL definitions or specifications at:</p>
     <ul>
-      <li>A PURL is a valid URL and URI that conforms to the URL definitions or specifications at:
-        <ul>
-          <li>https://tools.ietf.org/html/rfc3986</li>
-          <li>https://en.wikipedia.org/wiki/URL#Syntax</li>
-          <li>https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax</li>
-          <li>https://url.spec.whatwg.org/</li>
-        </ul>
-      </li>
-      <li>The PURL components are mapped to these URL components:
-        <ul>
-          <li>PURL `scheme`: this is a URL `scheme` with a constant value: `pkg`</li>
-          <li>PURL `type`, `namespace`, `name` and `version` components: these are collectively mapped to a URL `path`</li>
-          <li>PURL `qualifiers`: this maps to a URL `query`</li>
-          <li>PURL `subpath`: this is a URL `fragment`</li>
-        </ul>
-      </li>
-      <li>In a PURL, there is no support for a URL Authority (e.g. no `username`, `password`, `host` and `port` components).</li>
-      <li>Special URL schemes as defined in https://url.spec.whatwg.org/ such as `file://`, `https://`, `http://` and `ftp://` are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or in a PURL qualifier.</li>
-      <li>Version control system (VCS) URLs such as `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or in a PURL qualifier.</li>
-      <li>A PURL should be a locator based on three paths to specify or derive a URL:
-        <ul>
-          <li>A default repository location should be defined for a PURL `type`.</li>
-          <li>A repository URL or a download URL may be defined as a `qualifier` for a PURL `type`.</li>
-          <li>A package ecosystem may provide a mechanism to derive the locator based on a set of PURL components.</li>
-        </ul>
-      </li>
+      <li>RFC 3986</li>
+      <li>URL Living Standard</li>
+      <li>https://en.wikipedia.org/wiki/URL#Syntax</li>
+      <li>https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax</li>
+    </ul>
+    <p>The PURL components are mapped to these URL components:</p>
+    <ul>
+      <li>PURL `scheme`: this is a URL `scheme` with a constant value: `pkg`.</li>
+      <li>PURL `type`, `namespace`, `name` and `version` components: these are collectively mapped to a URL `path`.</li>
+      <li>PURL `qualifiers`: this maps to a URL `query`.</li>
+      <li>PURL `subpath`: this is a URL `fragment`.</li>
+    </ul>
+    <p>In a PURL, there is no support for a URL Authority (e.g. no `username`, `password`, `host` and `port` components).</p>
+    <p>Special URL schemes as defined in URL Living Standard such as `file://`, `https://`, `http://` and `ftp://` are not valid PURL types. They are valid URL or URI schemes, but they are not a valid PURL scheme. They may be used to reference URLs in separate attributes outside of a PURL or within a PURL qualifier.</p>
+    <p>Version control system (VCS) URLs such as `git://`, `svn://`, `hg://` or as defined in Python pip or SPDX download locations are not valid PURL types. They are valid URL or URI schemes, but they are not a valid PURL scheme. They are a closely related, compact and uniform way to reference VCS URLs. They may be used as references in separate attributes outside of a PURL or within a PURL qualifier.</p>
+    <p>A PURL should be a locator based on three paths to specify or derive a URL:</p>
+    <ul>
+      <li>A default repository location should be defined for a PURL `type`.</li>
+      <li>A repository URL or a download URL may be defined as a `qualifier` for a PURL `type`.</li>
+      <li>A package ecosystem may provide a mechanism to derive the locator based on a set of PURL components.</li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-permitted-characters">
     <h1>Permitted characters</h1>
     <p>A valid PURL is composed of these permitted ASCII characters:</p>
     <ul>
-      <li>the Alphanumeric Characters: `A to Z`, `a to z`, `0 to 9`</li>
-      <li>the Punctuation Characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~')</li>
-      <li>the Percent Character: `%` (percent sign '%')</li>
-      <li>the Separator Characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;', and hash sign '#')</li>
+      <li>the alphanumeric characters: `A to Z`, `a to z`, `0 to 9`</li>
+      <li>the punctuation characters: `.-_~` (period '.', dash '-', underscore '_', and tilde '~')</li>
+      <li>the percent character: `%` (percent sign '%')</li>
+      <li>the separator characters `:/@?=&amp;#` (colon ':', slash '/', at sign '@', question mark '?', equal sign '=', ampersand '&amp;', and hash sign '#')</li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-separator-characters">
     <h1>Separator characters</h1>
-    <p>This is how each of the Separator Characters is used:</p>
+    <p>This is how each of the separator characters is used:</p>
     <ul>
-      <li>':' (colon) is the separator between `scheme` and `type`</li>
-      <li>'/' (slash) is the separator between `type`, `namespace` and `name`</li>
-      <li>'/' (slash) is the separator between `subpath` segments</li>
-      <li>'@' (at sign) is the separator between `name` and `version`</li>
-      <li>'?' (question mark) is the separator before `qualifiers`</li>
-      <li>'=' (equals) is the separator between a `key` and a `value` of a `qualifier`</li>
-      <li>'&amp;' (ampersand) is the separator between `qualifiers` (each being a `key=value` pair)</li>
-      <li>'#' (hash sign) is the separator before `subpath`</li>
+      <li>':' (colon) is the separator between `scheme` and `type`.</li>
+      <li>'/' (slash) is the separator between `type`, `namespace` and `name`.</li>
+      <li>'/' (slash) is the separator between `subpath` segments.</li>
+      <li>'@' (at sign) is the separator between `name` and `version`.</li>
+      <li>'?' (question mark) is the separator before `qualifiers`.</li>
+      <li>'=' (equals) is the separator between a `key` and a `value` of a `qualifier`.</li>
+      <li>'&amp;' (ampersand) is the separator between `qualifiers` (each being a `key=value` pair).</li>
+      <li>'#' (hash sign) is the separator before `subpath`.</li>
     </ul>
   </emu-clause>
   <emu-clause id="sec-purl-specification-character-encoding">
     <h1>Character encoding</h1>
+    <p>In the <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref> Clause, each component defines when and how to apply percent-encoding and decoding to its content.</p>
+    <p>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per RFC 3629.</p>
+    <p>In the component string, each "data octet" shall be replaced by the <dfn>percent-encoded</dfn> "character triplet" applying the percent-encoding mechanism defined in RFC 3986 <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":</p>
     <ul>
-      <li>In the <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref> clause, each component defines when and how to apply percent-encoding and decoding to its content.</li>
-      <li>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per <a href="https://datatracker.ietf.org/doc/html/rfc3629">RFC 3629</a>.</li>
-      <li>In the component string, each "data octet" shall be replaced by the percent-encoded "character triplet" applying the percent-encoding mechanism defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">RFC 3986 section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":
-        <ul>
-          <li>"allowed set" is composed of the Alphanumeric Characters and the Punctuation Characters</li>
-          <li>"delimiters" is composed of the Separator Characters</li>
-        </ul>
-      </li>
-      <li>The following characters shall not be percent-encoded:
-        <ul>
-          <li>the Alphanumeric Characters</li>
-          <li>the Punctuation Characters</li>
-          <li>the Separator Characters when being used as PURL separators</li>
-          <li>the colon ':', whether used as a Separator Character or otherwise</li>
-          <li>the percent sign '%' when used to represent a percent-encoded character</li>
-        </ul>
-      </li>
-      <li>Where the space ' ' is permitted, it shall be percent-encoded as '%20'.</li>
-      <li>With the exception of the percent-encoding mechanism, the rules regarding percent-encoding are defined by this Standard alone.</li>
+      <li>"allowed set" is composed of the alphanumeric characters and the punctuation characters</li>
+      <li>"delimiters" is composed of the separator characters</li>
     </ul>
+    <p>The following characters shall not be <emu-not-ref>percent-encoded</emu-not-ref>:</p>
+      <ul>
+        <li>the alphanumeric characters</li>
+        <li>the punctuation characters</li>
+        <li>the separator characters when being used as PURL separators</li>
+        <li>the colon ':', whether used as a separator character or otherwise</li>
+        <li>the percent sign '%' when used to represent a <emu-not-ref>percent-encoded</emu-not-ref> character</li>
+      </ul>
+    <p>Where the space ' ' is permitted, it shall be <emu-not-ref>percent-encoded</emu-not-ref> as '%20'.</p>
+    <p>With the exception of the percent-encoding mechanism, the rules regarding percent-encoding are defined by this Standard alone.</p>
   </emu-clause>
 
   <emu-clause id="sec-purl-specification-case-folding">
     <h1>Case folding</h1>
-    <p>References to "lowercase" in this Standard refer to the <strong>culture-invariant</strong> full case mapping defined in <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">Section 3.13.2 of the Unicode Standard</a>.</p>
+    <p>References to "<dfn>lowercase</dfn>" in this Standard refer to the <strong>culture-invariant</strong> full case mapping defined in <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">Section 3.13.2</a> of the Unicode Standard.</p>
     <p>When applied to the ASCII character set, this operation converts uppercase Latin letters (`A to Z`) to their corresponding lowercase forms (`a to z`). All other ASCII characters remain unchanged.</p>
   </emu-clause>
 
@@ -389,11 +389,11 @@ f<!DOCTYPE html>
     <h1>Rules for each PURL component</h1>
     <p>A PURL string is an ASCII URL string composed of seven components. Except as expressly stated otherwise in this Clause, each component:</p>
     <ul>
-      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref> clause</li>
-      <li>shall be encoded as defined in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> clause</li>
+      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref> Clause, and</li>
+      <li>shall be encoded as defined in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> Clause.</li>
     </ul>
-    <p>The "lowercase" rules are defined in the <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref> clause.</p>
-    <p>The rules for each component are:</p>
+    <p>The "lowercase" rules are defined in the <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref> Clause.</p>
+
     <emu-clause id="sec-purl-specification-rules-scheme">
       <h1>Scheme</h1>
       <ul>
@@ -408,7 +408,7 @@ f<!DOCTYPE html>
         <li>The package `type` shall be composed only of ASCII letters and numbers, period '.', and dash '-'.</li>
         <li>The `type` shall start with an ASCII letter.</li>
         <li>The `type` shall not be percent-encoded.</li>
-        <li>The `type` is case insensitive. The form is lowercase.</li>
+        <li>The `type` is case-insensitive. The form is lowercase.</li>
       </ul>
     </emu-clause>
     <emu-clause id="sec-purl-specification-rules-namespace">
@@ -420,9 +420,9 @@ f<!DOCTYPE html>
         <li>Each `namespace` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
-            <li>shall not contain any slash '/' characters</li>
-            <li>shall not be empty</li>
-            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters</li>
+            <li>shall not contain any slash '/' characters,</li>
+            <li>shall not be empty, and</li>
+            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters.</li>
           </ul>
         </li>
         <li>A URL host or Authority shall not be used as a `namespace`. Use instead a `repository_url` qualifier. Note however, that for some types, the `namespace` may look like a host.</li>
@@ -460,7 +460,7 @@ f<!DOCTYPE html>
             <li>A `key` shall start with an ASCII letter.</li>
             <li>A `key` shall not be percent-encoded.</li>
             <li>Each `key` shall be unique among all the keys of the `qualifiers` component.</li>
-            <li>A `value` may contain any Unicode character and all characters shall be encoded as described in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> clause.</li>
+            <li>A `value` may contain any Unicode character and all characters shall be encoded as described in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> Clause.</li>
           </ul>
         </li>
       </ul>
@@ -475,10 +475,10 @@ f<!DOCTYPE html>
         <li>Each `subpath` segment shall be a percent-encoded string.</li>
         <li>When percent-decoded, a segment:
           <ul>
-            <li>shall not contain any slash '/' characters</li>
-            <li>shall not be empty</li>
-            <li>shall not be any of '..' or '.'</li>
-            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters</li>
+            <li>shall not contain any slash '/' characters,</li>
+            <li>shall not be empty,</li>
+            <li>shall not be any of '..' or '.', and</li>
+            <li>may contain any Unicode character other than '/' unless the package's `type` definition further restricts the allowed characters.</li>
           </ul>
         </li>
         <li>The `subpath` shall be interpreted as relative to the root of the package.</li>
@@ -487,11 +487,11 @@ f<!DOCTYPE html>
   </emu-clause>
   <emu-clause id="sec-purl-specification-type-definitions">
     <h1>PURL type definitions</h1>
-    <p>This Standard includes the Package-URL Type Definition Schema but it does not include the set of current "registered" PURL `type` (JSON format) definition files because there are ongoing additions and changes to these files. The set of current "registered" PURL `type` definition files are located at: https://www.packageurl.org/purl-types/. Registration refers to the Package-URL community process for adding a new PURL `type`.</p>
+    <p>This Standard includes the Package-URL Type Definition Schema, but it does not include the set of current "registered" PURL `type` (JSON format) definition files because there are ongoing additions and changes to these files. The set of current "registered" PURL `type` definition files are located at: https://www.packageurl.org/purl-types/. Registration refers to the Package-URL community process for adding a new PURL `type`.</p>
     <p>There are two rules related to the set of registered PURL `type` definitions for conforming PURL implementations to validate the PURL `type` component of a PURL:</p>
     <ul>
       <li>If the PURL `type` is registered, then the PURL is invalid if it does not conform to all of the rules from the corresponding PURL `type` definition.</li>
-      <li>If the PURL `type` is not registered, then the `type` component is valid if it conforms to the rules stated in the <emu-xref href="#sec-purl-specification-rules-type"" title></emu-xref> component rules in this Clause of the Standard. In this case an implementation should report a warning that the PURL `type` is not registered.</li>
+      <li>If the PURL `type` is not registered, then the `type` component is valid if it conforms to the rules stated in the <emu-xref href="#sec-purl-specification-rules-type" title></emu-xref> component rules in this Clause of the Standard. In this case an implementation should report a warning that the PURL `type` is not registered.</li>
     </ul>
   </emu-clause>
 </emu-clause>
@@ -509,9 +509,9 @@ f<!DOCTYPE html>
   <emu-clause id="sec--json-schema">
     <h1>JSON Schema</h1>
     <p>
-      The PURL Type Definition Schema is formally specified by a Draft 07 JSON Schema. Each published version of this specification is accompanied by a versioned meta-schema at a stable URI:
+      The PURL Type Definition Schema is formally specified by a Draft 07 JSON Schema. Each published version of the Standard is accompanied by a versioned meta-schema at a stable URI:
     </p>
-    <p><code>https://packageurl.org/schemas/purl-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code></p>
+    <pre><code>https://packageurl.org/schemas/purl-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code></pre>
 
     <p class="properties">
       <strong>Location:</strong> /<br>
@@ -686,7 +686,7 @@ f<!DOCTYPE html>
       <p class="properties"><strong>Location:</strong> /repository/default_repository_url<br>
         <strong>Property:</strong> default_repository_url (Optional)<br>
         <strong>Type:</strong> String<br>
-        <strong>Format:</strong> URI as specified in <a href="https://www.ietf.org/rfc/rfc3986.html">RFC 3986</a></p>
+        <strong>Format:</strong> URI as specified in RFC 3986</p>
       <p>The default public repository URL for this PURL type.</p>
     </emu-clause>
 
@@ -733,13 +733,13 @@ f<!DOCTYPE html>
           <td>permitted_characters</td>
           <td>String</td>
           <td>Optional</td>
-          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+          <td>A regular expression (ECMA-262 dialect) defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</td>
         </tr>
         <tr>
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
+          <td>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -834,17 +834,17 @@ f<!DOCTYPE html>
       <p class="properties"><strong>Location:</strong> /namespace_definition/permitted_characters<br>
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
-        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+        <strong>Format:</strong> A regular expression dialect defined by ECMA-262</p>
+      <p>A regular expression defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</p>
     </emu-clause>
     <!-- 6.6.10 starts here and becomes 6.6.4 -->
     <emu-clause id="sec--namespace-definition-case-sensitive">
-      <h1>Case sensitive</h1>
+      <h1>Case-sensitive</h1>
       <p class="properties"><strong>Location:</strong> /namespace_definition/case_sensitive<br>
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
+      <p>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
     <!-- 6.6.11 starts here and becomes 6.6.5 -->
     <emu-clause id="sec--namespace-definition-normalization-rules">
@@ -901,13 +901,13 @@ f<!DOCTYPE html>
           <td>permitted_characters</td>
           <td>String</td>
           <td>Optional</td>
-          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+          <td>A regular expression (ECMA-262 dialect) defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</td>
         </tr>
         <tr>
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
+          <td>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -954,17 +954,17 @@ f<!DOCTYPE html>
       <p class="properties"><strong>Location:</strong> /name_definition/permitted_characters<br>
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
-        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+        <strong>Format:</strong> A regular expression dialect defined by ECMA-262</p>
+      <p>A regular expression defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</p>
     </emu-clause>
     <!-- 6.7.4 starts here -->
     <emu-clause id="sec--name-definition-case-sensitive">
-      <h1>Case sensitive</h1>
+      <h1>Case-sensitive</h1>
       <p class="properties"><strong>Location:</strong> /name_definition/case_sensitive<br>
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
+      <p>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
     <!-- 6.7.5 starts here -->
     <emu-clause id="sec--name-definition-normalization-rules">
@@ -1021,13 +1021,13 @@ f<!DOCTYPE html>
           <td>permitted_characters</td>
           <td>String</td>
           <td>Optional</td>
-          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+          <td>A regular expression (ECMA-262 dialect) defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</td>
         </tr>
         <tr>
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
+          <td>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -1074,17 +1074,17 @@ f<!DOCTYPE html>
       <p class="properties"><strong>Location:</strong> /version_definition/permitted_characters<br>
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
-        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+        <strong>Format:</strong> A regular expression dialect defined by ECMA-262</p>
+      <p>A regular expression defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</p>
     </emu-clause>
     <!-- 6.8.4 starts here -->
     <emu-clause id="sec--version-definition-case-sensitive">
-      <h1>Case sensitive</h1>
+      <h1>Case-sensitive</h1>
       <p class="properties"><strong>Location:</strong> /version_definition/case_sensitive<br>
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
+      <p>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
     <!-- 6.8.5 starts here -->
     <emu-clause id="sec--version-definition-normalization-rules">
@@ -1263,13 +1263,13 @@ f<!DOCTYPE html>
           <td>permitted_characters</td>
           <td>String</td>
           <td>Optional</td>
-          <td>A regular expression (<a href="https://ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a> dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</td>
+          <td>A regular expression (ECMA-262 dialect) defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</td>
         </tr>
         <tr>
           <td>case_sensitive</td>
           <td>Boolean</td>
           <td>Optional</td>
-          <td>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</td>
+          <td>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</td>
         </tr>
         <tr>
           <td>normalization_rules</td>
@@ -1316,17 +1316,17 @@ f<!DOCTYPE html>
       <p class="properties"><strong>Location:</strong> /subpath_definition/permitted_characters<br>
         <strong>Property:</strong> permitted_characters (Optional)<br>
         <strong>Type:</strong> String<br>
-        <strong>Format:</strong> A regular expression dialect defined by <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">ECMA-262</a></p>
-      <p>A regular expression defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.</p>
+        <strong>Format:</strong> A regular expression dialect defined by ECMA-262</p>
+      <p>A regular expression defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.</p>
     </emu-clause>
     <!-- 6.10.4 starts here -->
     <emu-clause id="sec--subpath-definition-case-sensitive">
-      <h1>Case sensitive</h1>
+      <h1>Case-sensitive</h1>
       <p class="properties"><strong>Location:</strong> /subpath_definition/case_sensitive<br>
         <strong>Property:</strong> case_sensitive (Optional)<br>
         <strong>Type:</strong> Boolean<br>
         <strong>Default Value:</strong> `true`</p>
-      <p>`true` if this PURL component is case sensitive. If `false`, the form shall be lowercase.</p>
+      <p>`true` if this PURL component is case-sensitive. If `false`, the form shall be lowercase.</p>
     </emu-clause>
     <!-- 6.10.5 starts here -->
     <emu-clause id="sec--subpath-definition-normalization-rules">
@@ -1378,7 +1378,7 @@ f<!DOCTYPE html>
     <p class="properties"><strong>Location:</strong> /reference_urls<br>
       <strong>Property:</strong> reference_urls (Optional)<br>
       <strong>Type:</strong> array (of String)<br>
-      <strong>Format:</strong> URI as specified in <a href="https://www.ietf.org/rfc/rfc3986.html">RFC 3986</a></p>
+      <strong>Format:</strong> URI as specified in RFC 3986</p>
     <p>Optional list of informational reference URLs about this PURL type. Each item of this array shall be a string.</p>
     <p><em>All items shall be unique.</em></p>
   </emu-clause>
@@ -1428,7 +1428,7 @@ f<!DOCTYPE html>
       "properties": {
         "permitted_characters": {
           "title": "Permitted characters in this PURL component",
-          "description": "A regular expression (ECMA-262 dialect) defining the 'Permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the 'Permitted characters' defined in the PURL specification.",
+          "description": "A regular expression (ECMA-262 dialect) defining the 'permitted characters' for this component of this Package-URL type. If provided, this shall be a subset of the '<emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>' defined in this Standard.",
           "type": "string",
           "format": "regex"
         },
@@ -1961,7 +1961,7 @@ f<!DOCTYPE html>
         </code>
       </pre>
       <p>This compact VCS location notation supports referencing locations in version control systems such as Git, Mercurial, Subversion and Bazaar, and specifies the type of VCS tool using url prefixes: 'git+', 'hg+', 'bzr+', 'svn+' and specific transport schemes such as SSH or HTTPS.</p>
-      <p>Using user names and password in the host_name is not supported and should be reported by tools as an error.</p>
+      <p>Using usernames and password in the host_name is not supported and should be reported by tools as an error.</p>
       <p>Specifying sub-paths, branch names, a commit hash, a revision or a tag name is recommended, and supported, using the '@' delimiter for a commit version and the '#' delimiter for a sub-path.</p>
       <p>In VCS location compact notations, the trailing slashes in host_name, and path_to_repository are not significant. Leading and trailing slashes in sub_path are not significant.</p>
       <ul>
@@ -2000,7 +2000,7 @@ f<!DOCTYPE html>
 <emu-annex informative id="sec-abnf-grammar">
   <h1>ABNF Grammar</h1>
   <p>This Annex documents the Augmented Backus-Naur Form (ABNF) grammar for PURL strings.</p>
-  <p>A valid PURL string adheres to the following grammar with the syntax defined according to <a href="https://datatracker.ietf.org/doc/html/rfc5234">RFC 5234: Augmented BNF for Syntax Specifications: ABNF</a>.</p>
+  <p>A valid PURL string adheres to the following grammar with the syntax defined according to RFC 5234: Augmented BNF for Syntax Specifications: ABNF.</p>
   <pre><code class="language-abnf">
 PURL = scheme ":" type
        [ "/" namespace ] "/" name
@@ -2076,13 +2076,13 @@ pct-encoded-ns = percent (
                          ; %80-FF
                     )
   </code></pre>
-  <p>Conformance to this grammar for valid PURL strings is necessary but not sufficient because the following constraints of the specification are not expressible in ABNF. These constraints apply in addition to the grammar.</p>
+  <p>Conformance to this grammar for valid PURL strings is necessary but not sufficient because the following constraints of this Standard are not expressible in ABNF. These constraints apply in addition to the grammar.</p>
   <ul>
     <li>
       Each `key` shall be unique within `qualifiers`.
     </li>
     <li>
-      The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per <a href="https://datatracker.ietf.org/doc/html/rfc3629">RFC 3629</a>.
+      The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per RFC 3629.
     </li>
     <li>
       Type-specific rules may further restrict any component.
@@ -2094,20 +2094,44 @@ pct-encoded-ns = percent (
   <h1>Bibliography</h1>
   <ul>
     <li>
-      ECMA-262, <i>ECMAScript® language specification</i>, 16<sup>th</sup> Edition. Annex A.8: Grammar Summary for Regular Expressions<br>
+      <emu-not-ref>ECMA-262</emu-not-ref>, <cite>ECMAScript® language specification</cite>, 16<sup>th</sup> Edition. Annex A.8: Grammar Summary for Regular Expressions<br>
       <a href="https://262.ecma-international.org/16.0/index.html#sec-regular-expressions">https://262.ecma-international.org/16.0/index.html#sec-regular-expressions</a>
     </li>
     <li>
-      ECMA-404, <i>The JSON data interchange syntax</i><br>
+      ECMA-404, <cite>The JSON data interchange syntax</cite><br>
       <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-404/">https://www.ecma-international.org/publications-and-standards/standards/ecma-404/</a>
     </li>
     <li>
-      INCITS 4-1986 [R2022], <i>Information Systems - Coded Character Sets - 7-Bit Standard Code for Information Interchange (7-Bit ASCII)</i><br>
+      Ecma draft <cite><dfn id="dfn-vers" variants="VERS">Version Range Specification</dfn></cite><br>
+      <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">https://github.com/Ecma-TC54/ECMA-xxx-VERS</a>
+    </li>
+    <li>
+      The <emu-not-ref>Unicode</emu-not-ref> Consortium, <cite>The <emu-not-ref>Unicode</emu-not-ref> Standard</cite> Chapter 3.13.2: Default Case Conversion<br>
+      <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078</a>
+    </li>
+    <li>
+      INCITS 4-1986 [R2022], <cite>Information Systems - Coded Character Sets - 7-Bit Standard Code for Information Interchange (7-Bit ASCII)</cite><br>
       <a href="https://webstore.ansi.org/standards/incits/incits1986r2022">https://webstore.ansi.org/standards/incits/incits1986r2022</a>
     </li>
     <li>
-      IETF Draft, March 2018, <i>JSON Schema Validation: A Vocabulary for Structural Validation of JSON (Draft-07)</i><br>
+      IETF Draft, March 2018, <cite>JSON Schema Validation: A Vocabulary for Structural Validation of JSON (Draft-07)</cite><br>
       <a href="https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01">https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01</a>
+    </li>
+    <li>
+      Wikipedia, <cite>URL Syntax</cite><br>
+      <a href="https://en.wikipedia.org/wiki/URL#Syntax">https://en.wikipedia.org/wiki/URL#Syntax</a>
+    </li>
+    <li>
+      Wikipedia, <cite>Uniform Resource Identifier Syntax</cite><br>
+      <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax">https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax</a>
+    </li>
+    <li>
+      WHATWG, <cite><dfn>URL Living Standard</dfn></cite><br>
+      <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
+    </li>
+    <li>
+      Python Packaging Authority, <cite>pip <dfn>VCS Support</dfn></cite><br>
+      <a href="https://pip.pypa.io/en/stable/topics/vcs-support/">https://pip.pypa.io/en/stable/topics/vcs-support/</a>
     </li>
   </ul>
 </emu-annex>
