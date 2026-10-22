@@ -7,12 +7,6 @@
     margin-block: 0;
   }
 
-  pre code {
-    white-space: pre-wrap;
-    word-break: break-word;
-    padding: 0 !important;
-  }
-
   code.pattern {
     font-weight: normal !important;
   }
@@ -107,11 +101,17 @@
 </style>
 <style media="print">
   pre code {
-    word-break: break-all;
+    padding: 0 !important;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   a[data-print-href]::after {
     content: none;
+  }
+
+  #sec-schemas > p:has( + pre) {
+    break-after: avoid;
   }
 
   #sec-schemas pre {
