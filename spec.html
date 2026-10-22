@@ -122,12 +122,15 @@
     break-before: avoid;
   }
 
-  /* First edition (2025-specific) changes, reassess in future editions */
-  /*
-  #sec--name-definition-requirement p.properties + p {
-    break-after: avoid;
+  li:last-of-type {
+    break-before: avoid;
   }
-  */
+
+  /* Second edition-specific styles */
+
+  #sec-recommended-qualifiers-recommended-qualifiers-checksum-qualifier > p:first-of-type {
+    text-align: left;
+  }
 </style>
 <pre class="metadata">
   title: Package-URL (PURL) specification
@@ -224,6 +227,10 @@
     The <emu-not-ref>Unicode</emu-not-ref> Consortium, The <dfn id="dfn-unicode">Unicode</dfn> Standard<br>
     <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
   </p>
+  <p>
+    <dfn id="json-schema" variants="JSON Schema">JSON Schema draft-07</dfn>, <cite><emu-not-ref>JSON Schema</emu-not-ref>: A Media Type for Describing JSON Documents.</cite><br>
+    <a href="https://json-schema.org/draft-07/draft-handrews-json-schema-01">https://json-schema.org/draft-07/draft-handrews-json-schema-01</a>
+  </p>
 </emu-clause>
 
 <emu-clause id="sec-overview" informative>
@@ -240,11 +247,7 @@
   <h1>Package-URL specification</h1>
   <p>PURL stands for <strong>Package-URL</strong>.</p>
   <p>A PURL is a URL composed of seven components:</p>
-  <pre>
-    <code lang="plaintext">
-      scheme:type/namespace/name@version?qualifiers#subpath
-    </code>
-  </pre>
+  <pre><code lang="plaintext">scheme:type/namespace/name@version?qualifiers#subpath</code></pre>
 
   <p>Components are separated by a specific character for unambiguous parsing.</p>
 
@@ -363,7 +366,7 @@
   </emu-clause>
   <emu-clause id="sec-purl-specification-character-encoding">
     <h1>Character encoding</h1>
-    <p>In the <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref> Clause, each component defines when and how to apply percent-encoding and decoding to its content.</p>
+    <p>In <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref>, each component defines when and how to apply percent-encoding and decoding to its content.</p>
     <p>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per RFC 3629.</p>
     <p>In the component string, each "data octet" shall be replaced by the <dfn>percent-encoded</dfn> "character triplet" applying the percent-encoding mechanism defined in RFC 3986 <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":</p>
     <ul>
@@ -392,10 +395,10 @@
     <h1>Rules for each PURL component</h1>
     <p>A PURL string is an ASCII URL string composed of seven components. Except as expressly stated otherwise in this Clause, each component:</p>
     <ul>
-      <li>may be composed of any of the characters defined in the <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref> Clause;</li>
-      <li>shall be encoded as defined in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> Clause.</li>
+      <li>may be composed of any of the characters defined in <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>;</li>
+      <li>shall be encoded as defined in <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref>.</li>
     </ul>
-    <p>The "lowercase" rules are defined in the <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref> Clause.</p>
+    <p>The "lowercase" rules are defined in <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref>.</p>
 
     <emu-clause id="sec-purl-specification-rules-scheme">
       <h1>Scheme</h1>
@@ -463,7 +466,7 @@
             <li>A `key` shall start with an ASCII letter.</li>
             <li>A `key` shall not be percent-encoded.</li>
             <li>Each `key` shall be unique among all the keys of the `qualifiers` component.</li>
-            <li>A `value` may contain any Unicode character and all characters shall be encoded as described in the <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref> Clause.</li>
+            <li>A `value` may contain any Unicode character and all characters shall be encoded as described in <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref>.</li>
           </ul>
         </li>
       </ul>
@@ -490,11 +493,12 @@
   </emu-clause>
   <emu-clause id="sec-purl-specification-type-definitions">
     <h1>PURL type definitions</h1>
-    <p>This Standard includes the Package-URL Type Definition Schema, but it does not include the set of current "registered" PURL `type` (JSON format) definition files because there are ongoing additions and changes to these files. The set of current "registered" PURL `type` definition files are located at: https://www.packageurl.org/purl-types/. Registration refers to the Package-URL community process for adding a new PURL `type`.</p>
+    <p>This Standard includes the Package-URL Type Definition Schema, but it does not include the set of current "registered" PURL `type` (JSON format) definition files because there are ongoing additions and changes to these files. The set of current "registered" PURL `type` definition files are located at: <a href="https://www.packageurl.org/docs/purl/purl-types">https://www.packageurl.org/docs/purl/purl-types</a>. Registration refers to the Package-URL
+      <a href="https://www.packageurl.org/docs/purl/purl-types#how-to-propose-a-new-purl-type">community process</a> for adding a new PURL `type`.</p>
     <p>There are two rules related to the set of registered PURL `type` definitions for conforming PURL implementations to validate the PURL `type` component of a PURL:</p>
     <ul>
       <li>If the PURL `type` is registered, then the PURL is invalid if it does not conform to all of the rules from the corresponding PURL `type` definition.</li>
-      <li>If the PURL `type` is not registered, then the `type` component is valid if it conforms to the rules stated in the <emu-xref href="#sec-purl-specification-rules-type" title></emu-xref> component rules in this Clause of the Standard. In this case an implementation should report a warning that the PURL `type` is not registered.</li>
+      <li>If the PURL `type` is not registered, then the `type` component is valid if it conforms to the rules stated in the component rules in <emu-xref href="#sec-purl-specification-rules-type"></emu-xref>. In this case an implementation should report a warning that the PURL `type` is not registered.</li>
     </ul>
   </emu-clause>
 </emu-clause>
@@ -512,7 +516,7 @@
   <emu-clause id="sec--json-schema">
     <h1>JSON Schema</h1>
     <p>
-      The PURL Type Definition Schema is formally specified by a Draft 07 JSON Schema. Each published version of the Standard is accompanied by a versioned meta-schema at a stable URI:
+      The PURL Type Definition Schema is formally specified by JSON Schema draft-07. Each published version of the Standard is accompanied by a versioned meta-schema at a stable URI:
     </p>
     <pre><code>https://packageurl.org/schemas/purl-type-definition.schema-&lt;major&gt;.&lt;minor&gt;.json</code></pre>
 
@@ -1389,7 +1393,7 @@
 
 <emu-annex normative id="sec-schemas">
   <h1>PURL Type Definition</h1>
-  <p>This Annex provides a copy of the current Package-URL Type Definition Schema. The format is JSON Schema version <a href="https://json-schema.org/draft-07">draft-07</a>.</p>
+  <p>This Annex provides a copy of the current Package-URL Type Definition Schema. The format is JSON Schema draft-07.</p>
   <p>The schema shown below is available in electronic form at: <a href="https://www.packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json">https://www.packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json</a></p>
   <pre><code class="language-json">
 {
@@ -1776,7 +1780,7 @@
 
   <emu-annex id="sec-recommended-qualifiers-ecma-427-references">
     <h1>ECMA-427 references</h1>
-    <p>The standards for the PURL `qualifiers` component and the `key=value` pairs are defined in two ECMA-427 clauses:</p>
+    <p>The requirements for the PURL `qualifiers` component and the `key=value` pairs are defined in two clauses in this Standard:</p>
     <ul>
       <li><emu-xref href="#sec-purl-specification-rules-qualifiers" title></emu-xref></li>
       <li><emu-xref href="#sec--qualifiers-definition-qualifiers-definition" title></emu-xref></li>
@@ -1931,10 +1935,10 @@
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-repository-url-qualifier">
       <h1>repository_url qualifier</h1>
-      <p>This `qualifier`is intended for the use cases where:</p>
+      <p>This `qualifier` is intended for the use cases where:</p>
       <ul>
         <li>
-          the 'default_repository_url' property is empty in a PURL `type` definition,
+          the 'default_repository_url' property is empty in a PURL `type` definition, and
         </li>
         <li>
           there are multiple commonly used repositories for a PURL `type`.
@@ -1953,7 +1957,8 @@
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vcs-url-qualifier">
       <h1>vcs_url qualifier</h1>
-      <p>This `qualifier` is intended for the use case where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on Python pip syntax at: https://pip.pypa.io/en/stable/topics/vcs-support/ The syntax is:</p>
+      <p>This `qualifier` is intended for the use case where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on
+        <a href="https://pip.pypa.io/en/stable/topics/vcs-support/">Python pip syntax</a>.</p>
       <pre>
         <code lang="plaintext">
           &lt;vcs_tool&gt;+&lt;transport&gt;://&lt;host_name&gt;[/&lt;path_to_repository&gt;][@&lt;revision_tag_or_branch&gt;]#&lt;sub_path&gt;]
@@ -2077,6 +2082,7 @@ pct-encoded-ns = percent (
 
 <emu-annex id="sec-bibliography" back-matter>
   <h1>Bibliography</h1>
+
   <ul>
     <li>
       <emu-not-ref>ECMA-262</emu-not-ref>, <cite>ECMAScript® language specification</cite>, 16<sup>th</sup> Edition. Annex A.8: Grammar Summary for Regular Expressions<br>
@@ -2091,16 +2097,24 @@ pct-encoded-ns = percent (
       <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">https://github.com/Ecma-TC54/ECMA-xxx-VERS</a>
     </li>
     <li>
+      PURL types<br/>
+      <a href="https://www.packageurl.org/docs/purl/purl-types">https://www.packageurl.org/docs/purl/purl-types</a>.
+    </li>
+    <li>
+      PURL type definition schema<br>
+      <a href="https://www.packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json">https://www.packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json</a>
+    </li>
+    <li>
+      Package-URL, how to propose a new type<br>
+      <a href="https://www.packageurl.org/docs/purl/purl-types#how-to-propose-a-new-purl-type">https://www.packageurl.org/docs/purl/purl-types#how-to-propose-a-new-purl-type</a>
+    </li>
+    <li>
       The <emu-not-ref>Unicode</emu-not-ref> Consortium, <cite>The <emu-not-ref>Unicode</emu-not-ref> Standard</cite> Chapter 3.13.2: Default Case Conversion<br>
       <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078</a>
     </li>
     <li>
       INCITS 4-1986 [R2022], <cite>Information Systems - Coded Character Sets - 7-Bit Standard Code for Information Interchange (7-Bit ASCII)</cite><br>
       <a href="https://webstore.ansi.org/standards/incits/incits1986r2022">https://webstore.ansi.org/standards/incits/incits1986r2022</a>
-    </li>
-    <li>
-      IETF Draft, March 2018, <cite>JSON Schema Validation: A Vocabulary for Structural Validation of JSON (Draft-07)</cite><br>
-      <a href="https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01">https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01</a>
     </li>
     <li>
       Wikipedia, <cite>URL Syntax</cite><br>
