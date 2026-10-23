@@ -1,137 +1,63 @@
 <!DOCTYPE html>
 <html lang="en-GB-oxendict">
-<meta charset="utf-8">
-<link rel="icon" href="img/favicon.ico">
-<style>
-  pre:has(> code) {
-    margin-block: 0;
-  }
-
-  code.pattern {
-    font-weight: normal !important;
-  }
-
-  :is(#sec-normative-references, #sec-bibliography) dfn {
-    font-style: inherit;
-  }
-
-  @supports (color-scheme: dark) {
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --foreground-color: #111;
-        --background-color: #fff;
-
-        --link-foreground-color: #206ca7;
-        --link-hover-foreground-color: #239dee;
-
-        --user-code-foreground-color: brown;
-
-        --var-foreground-color: #218379;
-
-        --referenced0-background-color: #ffff6c;
-        --referenced1-background-color: #ffa4a8;
-        --referenced2-background-color: #96e885;
-        --referenced3-background-color: #3eeed2;
-        --referenced4-background-color: #eacfb6;
-        --referenced5-background-color: #82ddff;
-        --referenced6-background-color: #ffbcf2;
-
-        --note-background-color: #e9fbe9;
-        --note-border-color: #52e052;
-        --note-editor-border-color: #faa;
-
-        --nt-link-foreground-color: #333;
-
-        --production-rhs-background-color: #f0f0f0;
-        --production-rhs-border-color: #888;
-
-        --params-foreground-color: #2aa198;
-        --opt-foreground-color: #b58900;
-
-        --title-foreground-color: #f60;
-
-        --caption-foreground-color: #555555;
-
-        --table-header-background-color: #eeeeee;
-
-        --highlight-background-color-start: rgba(249, 241, 172, 1);
-        --highlight-background-color-end: rgba(249, 241, 172, 0);
-
-        --highlight-background-color: rgba(249, 241, 172, 1);
-
-        --ins-background-color: #e0f8e0;
-        --ins-border-color: #396;
-
-        --del-background-color: #fee;
-
-        --control-foreground-color: #eee;
-        --control-dimmed-foreground-color: #666;
-        --control-background-color: #ddd;
-        --control-dark-background-color: #ccc;
-        --control-border-color: #aaa;
-        --control-light-border-color: #bbb;
-        --control-shortcut-background-color: #eee;
-        --control-shortcut-shadow-color: #ccc;
-        --control-dialog-fade-color: rgba(255, 255, 255, 0.6);
-
-        --control-link-foreground-color: #1567a2;
-
-        --control-input-background-color: #bbb;
-        --control-input-border-color: #999;
-
-        --menu-header-background-color: #bbb;
-        --menu-revealed-link-foreground-color: #206ca7;
-        --menu-unpin-hover-foreground-color: #bb1212;
-
-        --menu-trace-list-foreground-color: #999;
-        --menu-trace-list-background-color: #222;
-
-        --toolbox-tail-background-outside-color: rgba(0, 0, 0, 0);
-        --toolbox-tail-border-outside-color: rgba(204, 204, 204, 0);
-
-        --normative-optional-background-color: #ffeedd;
-        --normative-optional-border-color: #ff6600;
-
-        --attributes-tag-foreground-color: #884400;
-
-        --figure-background: #fff;
-      }
+<head>
+  <title>Package-URL (PURL) specification</title>
+  <meta charset="utf-8">
+  <link rel="icon" href="img/favicon.ico">
+  <style>
+    pre:has(> code) {
+      margin-block: 0;
     }
-  }
-</style>
-<style media="print">
-  pre code {
-    padding: 0 !important;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
 
-  a[data-print-href]::after {
-    content: none;
-  }
+    code.pattern {
+      font-weight: normal;
+    }
 
-  #sec-schemas > p:has( + pre) {
-    break-after: avoid;
-  }
+    :is(#sec-normative-references, #sec-bibliography) dfn {
+      font-style: inherit;
+    }
 
-  #sec-schemas pre {
-    break-inside: auto;
-  }
+    pre code {
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+  <style media="print">
+    pre code.hljs {
+      padding: 0 !important;
+    }
 
-  p.properties + p, ol {
-    break-before: avoid;
-  }
+    a[data-print-href]::after {
+      content: none;
+    }
 
-  li:last-of-type {
-    break-before: avoid;
-  }
+    :is(#sec-schemas, #sec-abnf-grammar) > p {
+      break-after: avoid;
+    }
 
-  /* Second edition-specific styles */
+    :is(#sec-schemas, #sec-abnf-grammar) pre {
+      break-inside: auto;
+    }
 
-  #sec-recommended-qualifiers-recommended-qualifiers-checksum-qualifier > p:first-of-type {
-    text-align: left;
-  }
-</style>
+    p.properties + p, ol {
+      break-before: avoid;
+    }
+
+    li:last-of-type {
+      break-before: avoid;
+    }
+
+    /* Second edition-specific styles */
+    /* ****************************** */
+
+    /* Though, this one is likely to stay in as long as this example exists */
+    #sec-recommended-qualifiers-recommended-qualifiers-checksum-qualifier > p:first-of-type {
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
 <pre class="metadata">
   title: Package-URL (PURL) specification
   date: 2026-12-08
@@ -247,7 +173,7 @@
   <h1>Package-URL specification</h1>
   <p>PURL stands for <strong>Package-URL</strong>.</p>
   <p>A PURL is a URL composed of seven components:</p>
-  <pre><code lang="plaintext">scheme:type/namespace/name@version?qualifiers#subpath</code></pre>
+  <pre><code>scheme:type/namespace/name@version?qualifiers#subpath</code></pre>
 
   <p>Components are separated by a specific character for unambiguous parsing.</p>
 
@@ -1395,8 +1321,7 @@
   <h1>PURL Type Definition</h1>
   <p>This Annex provides a copy of the current Package-URL Type Definition Schema. The format is JSON Schema draft-07.</p>
   <p>The schema shown below is available in electronic form at: <a href="https://www.packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json">https://www.packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json</a></p>
-  <pre><code class="language-json">
-{
+  <pre><code class="language-json">{
   "$schema": "https://json-schema.org/draft-07/schema#",
   "$id": "https://packageurl.org/purl-schemas/purl-type-definition.schema-1.1.json",
   "title": "Package-URL Type Definition",
@@ -1920,7 +1845,7 @@
       <h1>download_url qualifier</h1>
       <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this `qualifier` for use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
       <emu-example>
-        <pre><code>pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz</code></pre>
+        <pre><code>pkg:generic/openssl@1.1.10g?download_url=<wbr>https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz</code></pre>
       </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-file-name-qualifier">
@@ -1959,11 +1884,7 @@
       <h1>vcs_url qualifier</h1>
       <p>This `qualifier` is intended for the use case where you need to specify a PURL at its Version Control System location. The syntax for 'vcs_url' is based on
         <a href="https://pip.pypa.io/en/stable/topics/vcs-support/">Python pip syntax</a>.</p>
-      <pre>
-        <code lang="plaintext">
-          &lt;vcs_tool&gt;+&lt;transport&gt;://&lt;host_name&gt;[/&lt;path_to_repository&gt;][@&lt;revision_tag_or_branch&gt;]#&lt;sub_path&gt;]
-        </code>
-      </pre>
+      <pre><code>&lt;vcs_tool&gt;+&lt;transport&gt;://&lt;host_name&gt;[/&lt;path_to_repository&gt;][@&lt;revision_tag_or_branch&gt;]#&lt;sub_path&gt;]</code></pre>
       <p>This compact VCS location notation supports referencing locations in version control systems such as Git, Mercurial, Subversion and Bazaar, and specifies the type of VCS tool using url prefixes: 'git+', 'hg+', 'bzr+', 'svn+' and specific transport schemes such as SSH or HTTPS.</p>
       <p>Using usernames and password in the host_name is not supported and should be reported by tools as an error.</p>
       <p>Specifying sub-paths, branch names, a commit hash, a revision or a tag name is recommended, and supported, using the '@' delimiter for a commit version and the '#' delimiter for a sub-path.</p>
@@ -1979,7 +1900,7 @@
         <pre><code>pkg:generic/bitwarden?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarden%40cc55108da32</code></pre>
       </emu-example>
       <emu-example>
-        <pre><code>pkg:npm/mypackage@12.4.5?vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343</code></pre>
+        <pre><code>pkg:npm/mypackage@12.4.5?<wbr>vcs_url=git:%2F%2Fhost.com%2F%2Fpath%2Fto%2Frepo.git%404345abcd34343</code></pre>
       </emu-example>
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
@@ -1997,8 +1918,7 @@
   <h1>ABNF Grammar</h1>
   <p>This Annex documents the Augmented Backus-Naur Form (ABNF) grammar for PURL strings.</p>
   <p>A valid PURL string adheres to the following grammar with the syntax defined according to RFC 5234: Augmented BNF for Syntax Specifications: ABNF.</p>
-  <pre><code class="language-abnf">
-PURL = scheme ":" type
+  <pre><code class="language-abnf">PURL = scheme ":" type
        [ "/" namespace ] "/" name
        [ "@" version ] [ "?" qualifiers ] [ "#" subpath ]
 
@@ -2097,7 +2017,7 @@ pct-encoded-ns = percent (
       <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">https://github.com/Ecma-TC54/ECMA-xxx-VERS</a>
     </li>
     <li>
-      PURL types<br/>
+      PURL types<br>
       <a href="https://www.packageurl.org/docs/purl/purl-types">https://www.packageurl.org/docs/purl/purl-types</a>.
     </li>
     <li>
@@ -2140,3 +2060,5 @@ pct-encoded-ns = percent (
   <p>This Standard is authored on <a href="https://github.com/Ecma-TC54/ECMA-427">GitHub</a> in a plaintext source format called <a href="https://github.com/tc39/ecmarkup">Ecmarkup</a>. Ecmarkup is an HTML and Markdown dialect that provides a framework and toolset for authoring ECMA specifications in plaintext and processing the specification into a full-featured HTML rendering that follows the editorial conventions for this document. Ecmarkup builds on and integrates a number of other formats and technologies including <a href="https://github.com/rbuckton/grammarkdown">Grammarkdown</a> for defining syntax and <a href="https://github.com/tc39/ecmarkdown">Ecmarkdown</a> for authoring algorithm steps. PDF renderings of this Standard are produced using a print stylesheet which takes advantage of the CSS Paged Media specification and is converted using <a href="https://www.princexml.com/">PrinceXML</a>.</p>
   <p>We extend our gratitude to TC39 for their exceptional work in developing Ecmarkup, which has greatly facilitated TC54's successful adoption of this tool for the preparation and maintenance of our technical specifications.</p>
 </emu-annex>
+</body>
+</html>
