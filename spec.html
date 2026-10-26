@@ -1913,7 +1913,7 @@
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-download-url-qualifier">
       <h1>download_url qualifier</h1>
-      <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this `qualifier` for use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value shall be percent-encoded.</p>
+      <p>Most package managers provide a mechanism to derive a 'download-url' from PURL data. Use this `qualifier` for use cases where the download URL for a package cannot be derived from the PURL or otherwise provided by the package manager. A 'download_url' value should be percent-encoded.</p>
       <emu-example>
         <pre><code>pkg:generic/openssl@1.1.10g?download_url=https:%2F%2Fopenssl.org%2Fsource%2Fopenssl-1.1.0g.tar.gz</code></pre>
       </emu-example>
@@ -1939,7 +1939,7 @@
           there are multiple commonly used repositories for a PURL `type`.
         </li>
       </ul>
-      <p>A 'repository_url' value shall be percent-encoded.</p>
+      <p>A 'repository_url' value should be percent-encoded.</p>
       <emu-example>
         <pre><code>pkg:bazel/curl@8.8.0?repository_url=https:%2F%2Fexample.org%2Fbazel-registry</code></pre>
       </emu-example>
@@ -1968,7 +1968,7 @@
         <li>The supported schemes for Subversion are: 'svn', 'svn+svn', 'svn+http', 'svn+https', and 'svn+ssh'. 'svn and 'svn+svn' are equivalent.</li>
         <li>The supported schemes for Bazaar are: 'bzr+http', 'bzr+https', 'bzr+ssh', 'bzr+sftp', 'bzr+ftp', and 'bzr+lp'.</li>
       </ul>
-      <p>A 'vcs_url' value shall be percent-encoded.</p>
+      <p>A 'vcs_url' value should be percent-encoded.</p>
       <emu-example>
         <pre><code>pkg:generic/bitwarden?vcs_url=git%2Bhttps:%2F%2Fgit.fsfe.org%2Fdxtr%2Fbitwarden%40cc55108da32</code></pre>
       </emu-example>
@@ -1978,7 +1978,7 @@
     </emu-annex>
     <emu-annex id="sec-recommended-qualifiers-recommended-qualifiers-vers-qualifier">
       <h1>vers qualifier</h1>
-      <p>The primary use cases for this `qualifier` are to identify a version range for dependency analysis or vulnerability reporting. Use of this `qualifier` is mutually exclusive with use of the `version` component. The value for a 'vers' `key` shall adhere to the <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">Version Range Specification</a>.</p>
+      <p>The primary use cases for this `qualifier` are to identify a version range for dependency analysis or vulnerability reporting. Use of this `qualifier` is mutually exclusive with use of the `version` component. The value for a 'vers' `key` should adhere to the <a href="https://github.com/Ecma-TC54/ECMA-xxx-VERS">Version Range Specification</a>.</p>
       <emu-example>
         <pre><code>pkg:pypi/django?vers=vers:pypi%2F%3E%3D1.11.0%7C%21%3D1.11.1%7C%3C2.0.0</code></pre>
       </emu-example>
@@ -2068,8 +2068,8 @@ pct-encoded-ns = percent (
   </code></pre>
   <p>Conformance to this grammar for valid PURL strings is necessary but not sufficient because the following constraints of this Standard are not expressible in ABNF. These constraints apply in addition to the grammar.</p>
   <ul>
-    <li>Each `key` shall be unique within `qualifiers`.</li>
-    <li>The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per RFC 3629.</li>
+    <li>Each `key` shall be unique among all the keys of the `qualifiers` component as required by <emu-xref href="#-purl-specification-rules-qualifiers" title></emu-xref>.</li>
+    <li>The octets decoded from a sequence of `pct-encoded`/`pct-encoded-ns` shall form a valid UTF-8 encoding per RFC 3629 as required by <emu-xref href="#-sec-purl-specification-character-encoding" title></emu-xref>.</li>
     <li>Type-specific rules may further restrict any component.</li>
   </ul>
 </emu-annex>
