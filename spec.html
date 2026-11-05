@@ -292,26 +292,26 @@
     <h1>Character encoding</h1>
     <p>In <emu-xref href="#sec-purl-specification-component-rules" title></emu-xref>, each component defines when and how to apply percent-encoding and decoding to its content.</p>
     <p>When percent-encoding is required by a component definition, the component string shall first be encoded as UTF-8 per RFC 3629.</p>
-    <p>In the component string, each "data octet" shall be replaced by the <dfn>percent-encoded</dfn> "character triplet" applying the percent-encoding mechanism defined in RFC 3986 <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">section 2.1</a>, including the RFC definition of "data octet" and "character triplet", and using these definitions for RFC's "allowed set" and "delimiters":</p>
+    <p>In the component string, each data octet shall be replaced by the percent-encoded character triplet applying the percent-encoding mechanism defined in RFC 3986 <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.1">section 2.1</a>, including the RFC definition of data octet and character triplet, and using these definitions for the RFC's allowed set and delimiters:</p>
     <ul>
-      <li>"allowed set" is composed of the alphanumeric characters and the punctuation characters;</li>
-      <li>"delimiters" is composed of the separator characters.</li>
+      <li>allowed set is composed of the alphanumeric characters and the punctuation characters;</li>
+      <li>delimiters is composed of the separator characters.</li>
     </ul>
-    <p>The following characters shall not be <emu-not-ref>percent-encoded</emu-not-ref>:</p>
+    <p>The following characters shall not be percent-encoded:</p>
       <ul>
         <li>the alphanumeric characters;</li>
         <li>the punctuation characters;</li>
         <li>the separator characters when being used as PURL separators;</li>
         <li>the colon ':', whether used as a separator character or otherwise;</li>
-        <li>the percent sign '%' when used to represent a <emu-not-ref>percent-encoded</emu-not-ref> character.</li>
+        <li>the percent sign '%' when used to represent a percent-encoded character.</li>
       </ul>
-    <p>Where the space ' ' is permitted, it shall be <emu-not-ref>percent-encoded</emu-not-ref> as '%20'.</p>
+    <p>Where the space ' ' is permitted, it shall be percent-encoded as '%20'.</p>
     <p>With the exception of the percent-encoding mechanism, the rules regarding percent-encoding are defined by this Standard alone.</p>
   </emu-clause>
 
   <emu-clause id="sec-purl-specification-case-folding">
     <h1>Case folding</h1>
-    <p>References to "<dfn>lowercase</dfn>" in this Standard refer to the <strong>culture-invariant</strong> full case mapping defined in <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">Section 3.13.2</a> of the Unicode Standard.</p>
+    <p>References to lowercase in this Standard refer to the <strong>culture-invariant</strong> full case mapping defined in <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-3/#G34078">Section 3.13.2</a> of the Unicode Standard.</p>
     <p>When applied to the ASCII character set, this operation converts uppercase Latin letters (`A to Z`) to their corresponding lowercase forms (`a to z`). All other ASCII characters remain unchanged.</p>
   </emu-clause>
 
@@ -322,7 +322,7 @@
       <li>may be composed of any of the characters defined in <emu-xref href="#sec-purl-specification-permitted-characters" title></emu-xref>;</li>
       <li>shall be encoded as defined in <emu-xref href="#sec-purl-specification-character-encoding" title></emu-xref>.</li>
     </ul>
-    <p>The "lowercase" rules are defined in <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref>.</p>
+    <p>The lowercase rules are defined in <emu-xref href="#sec-purl-specification-case-folding" title></emu-xref>.</p>
 
     <emu-clause id="sec-purl-specification-rules-scheme">
       <h1>Scheme</h1>
